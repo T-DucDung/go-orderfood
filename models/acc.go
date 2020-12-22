@@ -46,4 +46,9 @@ func (this *Account) CreateAcc() (Account, error) {
 	time := time.Now().Unix()
 	status := 1
 	_, err = ExecNonQuery("insert into account(created_date, updated_date, username, password, type, typeid, status) values(" + strconv.FormatInt(time, 10) + "," + strconv.FormatInt(time, 10) + ",'" + this.Username + "','" + this.Password + "'," + this.Type + "," + this.Typeid + "," + strconv.Itoa(status) + ")")
+
+	if err != nil {
+		return Account{}, err
+	}
+	return Account{}, nil
 }

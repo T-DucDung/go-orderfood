@@ -19,7 +19,7 @@ func GetStatisticStore(sid int, startTime, endTime int64) (models.StatisticStore
 	if err != nil {
 		return models.StatisticStore{}, err
 	}
-	r, err := GetRevenue(sid, startTime, endTime)
+	r, err := GetRevenueShop(sid, startTime, endTime)
 	if err != nil {
 		return models.StatisticStore{}, err
 	}
@@ -88,9 +88,9 @@ func GetBestSellingFood(sid, num int, startTime, endTime int64) ([]models.BestSe
 	return listBestSellingFoods, nil
 }
 
-func GetRevenue(sid int, startTime, endTime int64) (models.Revenue, error) {
+func GetRevenueShop(sid int, startTime, endTime int64) (models.Revenue, error) {
 	rIns := models.Revenue{}
-	r, err := rIns.GetRevenue(sid, startTime, endTime)
+	r, err := rIns.GetRevenueShop(sid, startTime, endTime)
 	if err != nil {
 		return models.Revenue{}, err
 	}

@@ -22,7 +22,7 @@ func QueryGetFN(id string) string {
 	return "select id, name as full_name from food where id = " + id
 }
 
-func QueryGetR(sid int, startTime, endTime int64) string {
+func QueryGetRS(sid int, startTime, endTime int64) string {
 	return "SELECT COUNT(id) as total_order, SUM(total_amount) as total_revenue from `order` where store_id = " + strconv.Itoa(sid) + " and order_status = 5  and created_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10)
 }
 
@@ -32,4 +32,12 @@ func QueryGetIdS(startTime, endTime int64) string {
 
 func QueryGetCC(startTime, endTime int64) string {
 	return "select count(id) as soluong from account where type = and created_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10)
+}
+
+func QueryGetCS(startTime, endTime int64) string {
+	return "select count(id) as soluong from account where type = and created_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10)
+}
+
+func QueryGetR(startTime, endTime int64) string {
+	return "SELECT COUNT(id) as total_order, SUM(total_amount) as total_revenue from `order` where order_status = 5  and created_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10)
 }
