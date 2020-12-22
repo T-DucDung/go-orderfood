@@ -7,7 +7,7 @@ import (
 func GetDataByQuery(query string) ([]map[string]interface{}, error) {
 	data := []map[string]interface{}{}
 
-	rows, err := conn.Query(query)
+	rows, err := db.Query(query)
 	defer rows.Close()
 	if err != nil {
 		log.Println(err)

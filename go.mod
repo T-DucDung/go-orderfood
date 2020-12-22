@@ -1,4 +1,4 @@
-module orderfood
+module go-orderfood
 
 go 1.15
 
