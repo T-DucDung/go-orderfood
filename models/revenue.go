@@ -2,7 +2,7 @@ package models
 
 import (
 	"encoding/json"
-	"orderfood/queries"
+	"go-orderfood/queries"
 )
 
 type Revenue struct {

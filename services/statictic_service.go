@@ -1,7 +1,7 @@
 package services
 
 import (
-	"orderfood/models"
+	"go-orderfood/models"
 	"strconv"
 )
 

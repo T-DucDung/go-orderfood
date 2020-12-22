@@ -2,8 +2,8 @@ package models
 
 import (
 	"encoding/json"
+	"go-orderfood/queries"
 	"log"
-	"orderfood/queries"
 )
 
 type Customers struct {

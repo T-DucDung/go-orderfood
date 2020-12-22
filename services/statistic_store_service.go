@@ -1,7 +1,8 @@
 package services
 
 import (
-	"orderfood/models"
+	"fmt"
+	"go-orderfood/models"
 	"strconv"
 )
 
@@ -23,9 +24,9 @@ func GetStatisticStore(sid int, startTime, endTime int64) (models.StatisticStore
 		return models.StatisticStore{}, err
 	}
 	sStore := models.StatisticStore{
-		ID:                 sIns.ID,
+		ID:                 strconv.Itoa(sIns.ID),
 		Name:               sIns.Name,
-		RateAvg:            sIns.RateAvg,
+		RateAvg:            fmt.Sprintf("%f", sIns.RateAvg),
 		LoyalCustomersName: listLoyalCustomersName,
 		BestSellingFoods:   listBestSellingFoods,
 		Revenue:            r.TotalRevenue,
@@ -37,7 +38,7 @@ func GetStatisticStore(sid int, startTime, endTime int64) (models.StatisticStore
 
 func GetStoreInfo(sid int) (models.Store, error) {
 	sIns := models.Store{
-		ID: strconv.Itoa(sid),
+		ID: sid,
 	}
 	return sIns.GetStoreInfo()
 }
@@ -74,14 +75,15 @@ func GetBestSellingFood(sid, num int, startTime, endTime int64) ([]models.BestSe
 		listBestSellingFoods = listBestSellingFoods[:num]
 	}
 	for index, item := range listBestSellingFoods {
-		fIns := models.Foods{
-			ID: item.FoodID,
+		id, _ := strconv.Atoi(item.FoodID)
+		fIns := models.Food{
+			ID: id,
 		}
 		f, err := fIns.GetFoodName()
 		if err != nil {
 			return []models.BestSellingFoods{}, err
 		}
-		listBestSellingFoods[index].FoodName = f.FullName
+		listBestSellingFoods[index].FoodName = f.Name
 	}
 	return listBestSellingFoods, nil
 }

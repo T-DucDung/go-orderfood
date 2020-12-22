@@ -1,7 +1,120 @@
 swagger: "2.0"
 info: {}
-basePath: /v1/orderfood
+basePath: /v1
 paths:
+  /category/:
+    get:
+      tags:
+      - category
+      description: Get category
+      operationId: CategoryController.Get category
+      responses:
+        "200":
+          description: string
+        "400":
+          description: string
+  /food/:
+    get:
+      tags:
+      - food
+      description: Get food
+      operationId: FoodController.Get food
+      responses:
+        "200":
+          description: string
+        "400":
+          description: string
+    put:
+      tags:
+      - food
+      description: Put
+      operationId: FoodController.Put food
+      parameters:
+      - in: body
+        name: body
+        description: food
+        required: true
+        schema:
+          $ref: '#/definitions/models.Food'
+      responses:
+        "200":
+          description: string
+        "400":
+          description: string
+    post:
+      tags:
+      - food
+      description: Post
+      operationId: FoodController.Post food
+      parameters:
+      - in: body
+        name: body
+        description: food
+        required: true
+        schema:
+          $ref: '#/definitions/models.Food'
+      responses:
+        "200":
+          description: string
+        "400":
+          description: string
+  /food/{id}:
+    delete:
+      tags:
+      - food
+      description: Put
+      operationId: FoodController.Detele food
+      parameters:
+      - in: path
+        name: id
+        description: food id
+        required: true
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: string
+        "400":
+          description: string
+  /menu/:
+    get:
+      tags:
+      - menu
+      description: Get menu
+      operationId: MenuController.Get menu
+      responses:
+        "200":
+          description: string
+        "400":
+          description: string
+    post:
+      tags:
+      - menu
+      description: Post
+      operationId: MenuController.Post menu
+      parameters:
+      - in: body
+        name: body
+        description: menu
+        required: true
+        schema:
+          $ref: '#/definitions/models.Menu'
+      responses:
+        "200":
+          description: string
+        "400":
+          description: string
+  /menu/detail:
+    get:
+      tags:
+      - menu
+      description: Get detail menu
+      operationId: MenuController.Get detail menu
+      responses:
+        "200":
+          description: string
+        "400":
+          description: string
   /statisticstore/:
     get:
       tags:
@@ -33,6 +146,28 @@ paths:
             $ref: '#/definitions/responses.ResStatisticStore'
         "404":
           description: responses.ResStatisticStore
+  /store/:
+    get:
+      tags:
+      - store
+      description: Get
+      operationId: StoreController.Get
+      responses:
+        "200":
+          description: string
+        "400":
+          description: string
+  /store/comment:
+    get:
+      tags:
+      - store
+      description: Comment
+      operationId: StoreController.Comment
+      responses:
+        "200":
+          description: string
+        "400":
+          description: string
 definitions:
   models.BestSellingFoods:
     title: BestSellingFoods
@@ -44,6 +179,43 @@ definitions:
         type: string
       total_count:
         type: string
+  models.Food:
+    title: Food
+    type: object
+    properties:
+      category_id:
+        type: integer
+        format: int64
+      content:
+        type: string
+      create_date:
+        type: integer
+        format: int64
+      id:
+        type: integer
+        format: int64
+      image:
+        type: string
+      init_price:
+        type: string
+      menu_id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      sale_price:
+        type: string
+      status:
+        type: integer
+        format: int64
+      store_id:
+        type: integer
+        format: int64
+      title:
+        type: string
+      update_date:
+        type: integer
+        format: int64
   models.LoyalCustomers:
     title: LoyalCustomers
     type: object
@@ -53,6 +225,40 @@ definitions:
       customers_name:
         type: string
       total_count:
+        type: string
+  models.Menu:
+    title: Menu
+    type: object
+    properties:
+      create_date:
+        type: integer
+        format: int64
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      store_id:
+        type: integer
+        format: int64
+      update_date:
+        type: integer
+        format: int64
+  models.Statistic:
+    title: Statistic
+    type: object
+    properties:
+      Revenue:
+        type: string
+      StatisticAllStore:
+        type: array
+        items:
+          $ref: '#/definitions/models.StatisticStore'
+      TotalCustomer:
+        type: string
+      TotalShipper:
+        type: string
+      TotalShop:
         type: string
   models.StatisticStore:
     title: StatisticStore
@@ -85,6 +291,14 @@ definitions:
         format: int64
       message:
         type: string
+  responses.ResStatistic:
+    title: ResStatistic
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/models.Statistic'
+      error:
+        $ref: '#/definitions/responses.Err'
   responses.ResStatisticStore:
     title: ResStatisticStore
     type: object

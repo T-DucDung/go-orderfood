@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"orderfood/models"
-	"orderfood/responses"
-	"orderfood/services"
+	"go-orderfood/models"
+	"go-orderfood/responses"
+	"go-orderfood/services"
 	"time"
 
 	"github.com/astaxie/beego"
