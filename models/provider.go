@@ -42,3 +42,12 @@ func GetDataByQuery(query string) ([]map[string]interface{}, error) {
 func BytesToString(data []byte) string {
 	return string(data[:])
 }
+
+func ExecNonQuery(str string) (int64, error) {
+	rows, err := db.Exec(str)
+	if err != nil {
+		log.Println(err)
+	}
+	id, err := rows.LastInsertId()
+	return id, err
+}

@@ -25,7 +25,9 @@ func main() {
 		AllowCredentials: true,
 	}))
 
-	beego.InsertFilter("*", beego.BeforeRouter, middlewares.Log)
+	beego.InsertFilter("/v1/statisticstore/*", beego.BeforeRouter, middlewares.Jwt)
+
+	// beego.InsertFilter("*", beego.BeforeRouter)
 
 	beego.Run()
 }

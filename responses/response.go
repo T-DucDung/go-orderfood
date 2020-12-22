@@ -6,3 +6,5 @@ type Response struct {
 }
 
 var FailResponse = Response{Data: "Bad request", Code: 401}
+
+var UnAuthResponse = Response{Data: "UnAuthenticated", Code: 405}

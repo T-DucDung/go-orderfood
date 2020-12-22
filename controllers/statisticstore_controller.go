@@ -16,6 +16,7 @@ type StatisticStoreController struct {
 //@Title Get Statictic Store
 //@Description Get Statictic Store
 //@Summary "Get thống kê một cửa hàng"
+// @Params auth header string true "store id"
 // @Params sid query int true "store id"
 // @Params startTime query int64 false "start time"
 // @Params endTime query int64 false "end time"
