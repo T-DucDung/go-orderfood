@@ -1,0 +1,144 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "basePath": "/v1/orderfood",
+    "paths": {
+        "/statisticstore/": {
+            "get": {
+                "tags": [
+                    "statisticstore"
+                ],
+                "summary": "\"Get thống kê một cửa hàng\"",
+                "description": "Get Statictic Store",
+                "operationId": "StatisticStoreController.Get Statictic Store",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "sid",
+                        "description": "store id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "startTime",
+                        "description": "start time",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "endTime",
+                        "description": "end time",
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ResStatisticStore"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.ResStatisticStore"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.BestSellingFoods": {
+            "title": "BestSellingFoods",
+            "type": "object",
+            "properties": {
+                "food_id": {
+                    "type": "string"
+                },
+                "food_name": {
+                    "type": "string"
+                },
+                "total_count": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.LoyalCustomers": {
+            "title": "LoyalCustomers",
+            "type": "object",
+            "properties": {
+                "customers_id": {
+                    "type": "string"
+                },
+                "customers_name": {
+                    "type": "string"
+                },
+                "total_count": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.StatisticStore": {
+            "title": "StatisticStore",
+            "type": "object",
+            "properties": {
+                "best_selling_foods": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.BestSellingFoods"
+                    }
+                },
+                "id": {
+                    "type": "string"
+                },
+                "loyal_customers_name": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.LoyalCustomers"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "number_of_orders": {
+                    "type": "string"
+                },
+                "rate_avg": {
+                    "type": "string"
+                },
+                "revenue": {
+                    "type": "string"
+                }
+            }
+        },
+        "responses.Err": {
+            "title": "Err",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "responses.ResStatisticStore": {
+            "title": "ResStatisticStore",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.StatisticStore"
+                },
+                "error": {
+                    "$ref": "#/definitions/responses.Err"
+                }
+            }
+        }
+    }
+}
