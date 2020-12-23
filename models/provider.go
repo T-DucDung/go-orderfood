@@ -32,6 +32,9 @@ func GetDataByQuery(query string) ([]map[string]interface{}, error) {
 			log.Println(err)
 		}
 		for i, col := range cols {
+			if col == nil {
+				col = []byte("0")
+			}
 			myMap[colNames[i]] = BytesToString(col.([]byte))
 		}
 		data = append(data, myMap)

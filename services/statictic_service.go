@@ -25,7 +25,7 @@ func GetStatistic(startTime, endTime int64) (models.Statistic, error) {
 	ls := []models.StatisticStore{}
 	s := models.StatisticStore{}
 	for _, id := range lsID {
-		ids, err := strconv.Atoi(id)
+		ids, err := strconv.Atoi(id.ID)
 		if err != nil {
 			return models.Statistic{}, err
 		}
@@ -47,11 +47,11 @@ func GetStatistic(startTime, endTime int64) (models.Statistic, error) {
 	return statistic, nil
 }
 
-func GetIdS(startTime, endTime int64) ([]string, error) {
+func GetIdS(startTime, endTime int64) ([]models.LString, error) {
 	s := models.Store{}
 	lsID, err := s.GetID(startTime, endTime)
 	if err != nil {
-		return []string{}, err
+		return []models.LString{}, err
 	}
 	return lsID, err
 }
