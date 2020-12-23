@@ -62,7 +62,7 @@ paths:
             $ref: '#/definitions/responses.ResStatisticStore'
         "404":
           description: responses.ResStatisticStore
-  /user/:
+  /user/login:
     post:
       tags:
       - user
@@ -72,7 +72,27 @@ paths:
       parameters:
       - in: body
         name: username
-        description: "true"
+        description: username
+        required: true
+        schema:
+          $ref: '#/definitions/models.Authorize'
+      responses:
+        "200":
+          description: ""
+        "404":
+          description: ""
+  /user/signup:
+    post:
+      tags:
+      - user
+      summary: '"Signup"'
+      description: Signup
+      operationId: UserController.Signup
+      parameters:
+      - in: body
+        name: username
+        description: username
+        required: true
         schema:
           $ref: '#/definitions/models.Authorize'
       responses:

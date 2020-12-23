@@ -3,8 +3,8 @@ package models
 import (
 	"encoding/json"
 	"go-orderfood/queries"
-	"strconv"
 	"log"
+	"strconv"
 )
 
 type Store struct {
@@ -19,11 +19,11 @@ type Store struct {
 	RateFour   float32 `json:"rate_four" xml:"rate_four"`
 	RateFive   float32 `json:"rate_five" xml:"rate_five"`
 	Username   string  `json:"username"`
-	Status     int 	   `json:"status"`
+	Status     int     `json:"status"`
 }
 
 func (this *Store) GetStoreInfo() (Store, error) {
-	data, err := GetDataByQuery(queries.QueryGetIS(this.ID))
+	data, err := GetDataByQuery(queries.QueryGetIS(strconv.Itoa(this.ID)))
 	if err != nil {
 		return Store{}, err
 	}
@@ -59,8 +59,11 @@ func (this *Store) GetID(startTime, endTime int64) ([]LString, error) {
 	return ls, err
 }
 
-<<<<<<< HEAD
-func (this *Store) GetTotalCustomer() (Store, error){
+type LString struct {
+	ID string `json:"id" xml:"id"`
+}
+
+func (this *Store) GetTotalCustomer() (Store, error) {
 	data, err := GetDataByQuery("select store.id as id, name as name, username as username, status as status, rate_avg as rate_avg from store,account where store.id = account.typeid and type=1")
 	if err != nil {
 		return Store{}, err
@@ -78,8 +81,3 @@ func (this *Store) GetTotalCustomer() (Store, error){
 	}
 	return store, nil
 }
-=======
-type LString struct {
-	ID string `json:"id" xml:"id"`
-}
->>>>>>> main

@@ -1,6 +1,7 @@
 package services
 
 import (
+	"fmt"
 	"go-orderfood/models"
 	"log"
 	"strconv"
@@ -25,9 +26,9 @@ func GetStatisticStore(sid int, startTime, endTime int64) (models.StatisticStore
 		return models.StatisticStore{}, err
 	}
 	sStore := models.StatisticStore{
-		ID:                 sIns.ID,
+		ID:                 strconv.Itoa(sIns.ID),
 		Name:               sIns.Name,
-		RateAvg:            sIns.RateAvg,
+		RateAvg:            fmt.Sprintf("%f", sIns.RateAvg),
 		LoyalCustomersName: listLoyalCustomersName,
 		BestSellingFoods:   listBestSellingFoods,
 		Revenue:            r.TotalRevenue,
@@ -39,7 +40,7 @@ func GetStatisticStore(sid int, startTime, endTime int64) (models.StatisticStore
 
 func GetStoreInfo(sid int) (models.Store, error) {
 	sIns := models.Store{
-		ID: strconv.Itoa(sid),
+		ID: sid,
 	}
 	return sIns.GetStoreInfo()
 }
