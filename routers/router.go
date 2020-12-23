@@ -13,6 +13,11 @@ func init() {
 				&controllers.StatisticStoreController{},
 			),
 		),
+		beego.NSNamespace("/statistic",
+			beego.NSInclude(
+				&controllers.StatisticController{},
+			),
+		),
 		beego.NSNamespace("/user",
 			beego.NSInclude(
 				&controllers.UserController{},

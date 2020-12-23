@@ -23,8 +23,11 @@ type Store struct {
 }
 
 func (this *Store) GetStoreInfo() (Store, error) {
-	data, err := GetDataByQuery(queries.QueryGetIS(strconv.Itoa(this.ID)))
+	data, err := GetDataByQuery(queries.QueryGetIS(this.ID))
 	if err != nil {
+		return Store{}, err
+	}
+	if len(data) == 0 {
 		return Store{}, err
 	}
 	bData, err := json.Marshal(data[0])
@@ -39,23 +42,24 @@ func (this *Store) GetStoreInfo() (Store, error) {
 	return store, nil
 }
 
-func (this *Store) GetID(startTime, endTime int64) ([]string, error) {
+func (this *Store) GetID(startTime, endTime int64) ([]LString, error) {
 	data, err := GetDataByQuery(queries.QueryGetIdS(startTime, endTime))
 	if err != nil {
-		return []string{}, err
+		return []LString{}, err
 	}
 	bData, err := json.Marshal(data)
 	if err != nil {
-		return []string{}, err
+		return []LString{}, err
 	}
-	ls := []string{}
+	ls := []LString{}
 	err = json.Unmarshal(bData, &ls)
 	if err != nil {
-		return []string{}, err
+		return []LString{}, err
 	}
 	return ls, err
 }
 
+<<<<<<< HEAD
 func (this *Store) GetTotalCustomer() (Store, error){
 	data, err := GetDataByQuery("select store.id as id, name as name, username as username, status as status, rate_avg as rate_avg from store,account where store.id = account.typeid and type=1")
 	if err != nil {
@@ -74,3 +78,8 @@ func (this *Store) GetTotalCustomer() (Store, error){
 	}
 	return store, nil
 }
+=======
+type LString struct {
+	ID string `json:"id" xml:"id"`
+}
+>>>>>>> main
