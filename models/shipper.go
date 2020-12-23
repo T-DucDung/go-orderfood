@@ -3,11 +3,13 @@ package models
 import (
 	"encoding/json"
 	"go-orderfood/queries"
+	"log"
 )
 
 type Shipper struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`
+	Phone string `json:"phone"`
 }
 
 func (this *Shipper) GetTotalShi(startTime, endTime int64) (string, error) {
@@ -25,4 +27,23 @@ func (this *Shipper) GetTotalShi(startTime, endTime int64) (string, error) {
 		return "-1", err
 	}
 	return soluong, nil
+}
+
+func (this *Shipper) GetTotalCustomer() (Shipper, error){
+	data, err := GetDataByQuery("select shipper.id as id, name as name, phone as phone, username as username, status as status from shipper,account where shipper.id = account.typeid and type = 2")
+	if err != nil {
+		return Shipper{}, err
+	}
+	bData, err := json.Marshal(data[0])
+	if err != nil {
+		return Shipper{}, err
+	}
+	shipper := Shipper{}
+	err = json.Unmarshal(bData, &shipper)
+	if err != nil {
+		log.Println(err)
+		log.Println(shipper)
+		return Shipper{}, err
+	}
+	return shipper, nil
 }
