@@ -4,26 +4,25 @@ import (
 	"encoding/json"
 	"go-orderfood/queries"
 	"log"
-	"strconv"
 )
 
 type Store struct {
-	CreateDate int64   `json:"create_date" xml:"create_date"`
-	UpdateDate int64   `json:"update_date" xml:"update_date"`
-	ID         int     `json:"id" xml:"id"`
-	Name       string  `json:"name" xml:"name"`
-	RateAvg    float32 `json:"rate_avg" xml:"rate_avg"`
-	RateOne    float32 `json:"rate_one" xml:"rate_one"`
-	RateTwo    float32 `json:"rate_two" xml:"rate_two"`
-	RateThree  float32 `json:"rate_three" xml:"rate_three"`
-	RateFour   float32 `json:"rate_four" xml:"rate_four"`
-	RateFive   float32 `json:"rate_five" xml:"rate_five"`
-	Username   string  `json:"username"`
-	Status     int     `json:"status"`
+	CreateDate string `json:"create_date" xml:"create_date"`
+	UpdateDate string `json:"update_date" xml:"update_date"`
+	ID         string `json:"id" xml:"id"`
+	Name       string `json:"name" xml:"name"`
+	RateAvg    string `json:"rate_avg" xml:"rate_avg"`
+	RateOne    string `json:"rate_one" xml:"rate_one"`
+	RateTwo    string `json:"rate_two" xml:"rate_two"`
+	RateThree  string `json:"rate_three" xml:"rate_three"`
+	RateFour   string `json:"rate_four" xml:"rate_four"`
+	RateFive   string `json:"rate_five" xml:"rate_five"`
+	Username   string `json:"username"`
+	Status     string `json:"status"`
 }
 
 func (this *Store) GetStoreInfo() (Store, error) {
-	data, err := GetDataByQuery(queries.QueryGetIS(strconv.Itoa(this.ID)))
+	data, err := GetDataByQuery(queries.QueryGetIS(this.ID))
 	if err != nil {
 		return Store{}, err
 	}

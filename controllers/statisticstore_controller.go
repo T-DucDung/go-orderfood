@@ -4,6 +4,7 @@ import (
 	"go-orderfood/models"
 	"go-orderfood/responses"
 	"go-orderfood/services"
+	"log"
 	"strconv"
 	"time"
 
@@ -33,6 +34,7 @@ func (this *StatisticStoreController) GetStatisticStore() {
 		}
 		return
 	}
+	log.Println("this.Ctx.Request.Header ", this.Ctx.Request.Header)
 	typeid := this.Ctx.Request.Header.Get("Type")
 	if typeid != "1" {
 		this.Data["json"] = responses.ResStatisticStore{
@@ -41,6 +43,7 @@ func (this *StatisticStoreController) GetStatisticStore() {
 		}
 		return
 	}
+	log.Println(sid)
 	endTime, err := this.GetInt64("endTime", time.Now().UnixNano()/int64(time.Millisecond))
 	if err != nil {
 		this.Data["json"] = responses.ResStatisticStore{
