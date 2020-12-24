@@ -29,7 +29,7 @@ func (this *Shipper) GetInfoShipper(id string) (Shipper, error) {
 	if len(data) == 0 {
 		return Shipper{}, err
 	}
-	bData, err := json.Marshal(data)
+	bData, err := json.Marshal(data[0])
 	if err != nil {
 		return Shipper{}, err
 	}

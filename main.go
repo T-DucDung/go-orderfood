@@ -17,16 +17,16 @@ func main() {
 	models.InitConnectDataBase()
 
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
-		AllowAllOrigins: true,
-		AllowMethods:    []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowHeaders: []string{"Origin", "Connection", "Authorization", "Sec-WebSocket-Extensions", "Sec-WebSocket-Key",
-			"Sec-WebSocket-Version", "Access-Control-Allow-Origin", "content-type", "Content-Type", "sessionkey", "token", "Upgrade"},
-		ExposeHeaders:    []string{"Content-Length", "Access-Control-Allow-Origin", "Content-Type", "Sec-WebSocket-Accept", "Connection", "Upgrade"},
+		AllowAllOrigins:  true,
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Authorization", "Access-Control-Allow-Origin", "content-type", "Content-Type", "Auth"},
+		ExposeHeaders:    []string{"Content-Length", "Access-Control-Allow-Origin", "Content-Type"},
 		AllowCredentials: true,
 	}))
 
 	beego.InsertFilter("/v1/statisticstore/*", beego.BeforeRouter, middlewares.Jwt)
 	beego.InsertFilter("/v1/statistic/*", beego.BeforeRouter, middlewares.Jwt)
+	beego.InsertFilter("/v1/listorder/*", beego.BeforeRouter, middlewares.Jwt)
 
 	// beego.InsertFilter("*", beego.BeforeRouter)
 

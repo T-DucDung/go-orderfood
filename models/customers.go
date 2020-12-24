@@ -63,3 +63,20 @@ func (this *Customers) GetTotalCustomer() (Customers, error) {
 	}
 	return cus, nil
 }
+
+func (this *Customers) GetInFo(id string) (Customers, error) {
+	data, err := GetDataByQuery(queries.QueryGetInfoCus(id))
+	if err != nil {
+		return Customers{}, err
+	}
+	bData, err := json.Marshal(data[0])
+	if err != nil {
+		return Customers{}, err
+	}
+	c := Customers{}
+	err = json.Unmarshal(bData, &c)
+	if err != nil {
+		return Customers{}, err
+	}
+	return c, err
+}

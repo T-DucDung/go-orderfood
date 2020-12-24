@@ -27,7 +27,7 @@ func QueryGetRS(sid int, startTime, endTime int64) string {
 }
 
 func QueryGetIdS(startTime, endTime int64) string {
-	return "SELECT id from `order` where created_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10)
+	return "SELECT id from store where created_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10)
 }
 
 func QueryGetCC(startTime, endTime int64) string {
@@ -39,5 +39,5 @@ func QueryGetCS(startTime, endTime int64) string {
 }
 
 func QueryGetR(startTime, endTime int64) string {
-	return "SELECT COUNT(id) as total_order, SUM(total_amount) as total_revenue from `order` where order_status = 4  and created_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10)
+	return "SELECT COUNT(id) as total_order, SUM(total_amount) as total_revenue from `order` where order_status = 5  and created_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10)
 }

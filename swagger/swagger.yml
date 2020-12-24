@@ -2,6 +2,119 @@ swagger: "2.0"
 info: {}
 basePath: /v1
 paths:
+  /listorder/:
+    get:
+      tags:
+      - listorder
+      summary: '"Get danh sách order "'
+      description: Get List Order
+      operationId: ListOrderController.Get List Order
+      parameters:
+      - in: header
+        name: auth
+        description: token
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/responses.ResListOrder'
+        "404":
+          description: responses.ResListOrder
+    post:
+      tags:
+      - listorder
+      summary: '"Shipper nhận đơn"'
+      description: Up Status Order
+      operationId: ListOrderController.Up Status Order
+      parameters:
+      - in: header
+        name: auth
+        description: token
+        required: true
+        type: string
+      - in: query
+        name: orderid
+        description: order id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/responses.Response'
+        "404":
+          description: responses.Response
+  /listorder/shipper:
+    get:
+      tags:
+      - listorder
+      summary: '"Get danh sách order mà shipper đã nhận"'
+      description: Get List Order Shipper
+      operationId: ListOrderController.Get List Order Shipper
+      parameters:
+      - in: header
+        name: auth
+        description: token
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/responses.ResListOrder'
+        "404":
+          description: responses.ResListOrder
+    post:
+      tags:
+      - listorder
+      summary: '"Shipper hoàn thành đơn"'
+      description: End Status Order
+      operationId: ListOrderController.End Status Order
+      parameters:
+      - in: header
+        name: auth
+        description: token
+        required: true
+        type: string
+      - in: query
+        name: orderid
+        description: order id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/responses.Response'
+        "404":
+          description: responses.Response
+  /listorder/store:
+    post:
+      tags:
+      - listorder
+      summary: '"Store nhận đơn"'
+      description: Store Accept Order
+      operationId: ListOrderController.Store Accept Order
+      parameters:
+      - in: header
+        name: auth
+        description: token
+        required: true
+        type: string
+      - in: query
+        name: orderid
+        description: order id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/responses.Response'
+        "404":
+          description: responses.Response
   /statistic/:
     get:
       tags:
@@ -101,6 +214,9 @@ paths:
         "404":
           description: ""
 definitions:
+  693.0xc00057f500.false:
+    title: "false"
+    type: object
   models.Authorize:
     title: Authorize
     type: object
@@ -119,6 +235,18 @@ definitions:
         type: string
       total_count:
         type: string
+  models.FoodOrder:
+    title: FoodOrder
+    type: object
+    properties:
+      id_food:
+        type: string
+      name:
+        type: string
+      price:
+        type: string
+      quantity:
+        type: string
   models.LoyalCustomers:
     title: LoyalCustomers
     type: object
@@ -129,23 +257,55 @@ definitions:
         type: string
       total_count:
         type: string
+  models.Order:
+    title: Order
+    type: object
+    properties:
+      address:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: string
+      list_food:
+        type: array
+        items:
+          $ref: '#/definitions/models.FoodOrder'
+      mobile:
+        type: string
+      name_shipper:
+        type: string
+      name_shop:
+        type: string
+      order_status:
+        type: string
+      phone_shipper:
+        type: string
+      shipper_id:
+        type: string
+      shop_id:
+        type: string
+      total_amount:
+        type: string
+      user_id:
+        type: string
   models.Statistic:
     title: Statistic
     type: object
     properties:
-      Revenue:
+      revenue:
         type: string
-      StatisticAllStore:
+      statistic_all_store:
         type: array
         items:
           $ref: '#/definitions/models.StatisticStore'
-      TotalCustomer:
+      total_customer:
         type: string
-      TotalOrder:
+      total_order:
         type: string
-      TotalShipper:
+      total_shipper:
         type: string
-      TotalShop:
+      total_shop:
         type: string
   models.StatisticStore:
     title: StatisticStore
@@ -178,6 +338,16 @@ definitions:
         format: int64
       message:
         type: string
+  responses.ResListOrder:
+    title: ResListOrder
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/models.Order'
+      error:
+        $ref: '#/definitions/responses.Err'
   responses.ResStatistic:
     title: ResStatistic
     type: object
@@ -192,5 +362,13 @@ definitions:
     properties:
       data:
         $ref: '#/definitions/models.StatisticStore'
+      error:
+        $ref: '#/definitions/responses.Err'
+  responses.Response:
+    title: Response
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/693.0xc00057f500.false'
       error:
         $ref: '#/definitions/responses.Err'
