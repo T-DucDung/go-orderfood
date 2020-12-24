@@ -37,8 +37,13 @@ func (this *UserController) CreateCustomer() {
 	}
 	req := requests.CreateCustomer{}
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &req)
+	log.Println(err)
+	log.Println(req.Type)
 	if err != nil {
-		this.Data["json"] = ""
+		this.Data["json"] = responses.ResCustomer{
+			Data:  []models.Customers{},
+			Error: responses.NewErr(responses.UnSuccess),
+		}
 		return
 	}
 	_, err = cus.CreateCustomer(req)
@@ -49,7 +54,11 @@ func (this *UserController) CreateCustomer() {
 		}
 		return
 	}
-	this.Data["json"] = ""
+	log.Println(err)
+	this.Data["json"] = responses.ResCustomer{
+		Data:  []models.Customers{},
+		Error: responses.NewErr(responses.Success),
+	}
 	return
 }
 
@@ -75,6 +84,7 @@ func (this *UserController) CreateStore() {
 	}
 	req := requests.CreateStore{}
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &req)
+	log.Println(req)
 	if err != nil {
 		this.Data["json"] = ""
 		return

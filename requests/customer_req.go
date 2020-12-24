@@ -6,7 +6,7 @@ type CreateCustomer struct {
 	Address  string `json:"address"`
 	Mobile   string `json:"mobile"`
 	Email    string `json:"email"`
-	UserName string `json:"user_name"`
+	Username string `json:"username"`
 	Password string `json:"password"`
 	Type     string `json:"type"`
 }

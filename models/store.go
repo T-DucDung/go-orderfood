@@ -66,7 +66,7 @@ type LString struct {
 }
 
 func (this *Store) GetTotalStore() ([]Store, error) {
-	data, err := GetDataByQuery("select store.id as id, name as name, username as username, status as status, rate_avg as rate_avg from store,account where store.id = account.typeid and type=1")
+	data, err := GetDataByQuery("select store.id as id, name as name, username as username, status as status from store,account where store.id = account.typeid and type=1")
 	if err != nil {
 		return []Store{}, err
 	}
@@ -85,13 +85,15 @@ func (this *Store) GetTotalStore() ([]Store, error) {
 }
 
 func (this *Store) CreateStore(req requests.CreateStore) (Store, error) {
-	var acc = Account{}
+	var acc = Account{
+		Username: req.Username,
+	}
 	_, err := acc.Getaccount()
 	if err == nil {
 		return Store{}, err
 	}
 	time := time.Now().UnixNano() / int64(time.Millisecond)
-	status := 1
+	status := "1"
 
 	data1, err := db.Prepare("INSERT INTO store(created_date, updated_date, name, rate_avg, rate_one, rate_two, rate_three, rate_four, rate_five) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);")
 	if err != nil {
@@ -109,10 +111,10 @@ func (this *Store) CreateStore(req requests.CreateStore) (Store, error) {
 		return Store{}, err
 	}
 	i, _ := strconv.Atoi(req.Type)
-	_, err = data.Exec(time, time, req.UserName, req.Password, i, num[0]["id"].(string), strconv.Itoa(status))
+	_, err = data.Exec(time, time, req.Username, req.Password, i, num[0]["id"].(string), status)
 
 	if err != nil {
-		log.Println(err)
+		log.Println("err", err)
 		return Store{}, err
 	}
 	return Store{}, nil

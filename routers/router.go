@@ -28,9 +28,9 @@ func init() {
 				&controllers.LoginController{},
 			),
 		),
-		beego.NSNamespace("/listorder",
+		beego.NSNamespace("/food",
 			beego.NSInclude(
-				&controllers.ListOrderController{},
+				&controllers.FoodController{},
 			),
 		),
 	)

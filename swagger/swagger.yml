@@ -2,117 +2,40 @@ swagger: "2.0"
 info: {}
 basePath: /v1
 paths:
-  /listorder/:
+  /food/cate:
     get:
       tags:
-      - listorder
-      summary: '"Get danh sách order "'
-      description: Get List Order
-      operationId: ListOrderController.Get List Order
-      parameters:
-      - in: header
-        name: auth
-        description: token
-        required: true
-        type: string
+      - food
+      summary: '"Get Category"'
+      description: Get Category
+      operationId: FoodController.Get Category
       responses:
         "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/responses.ResListOrder'
-        "404":
-          description: responses.ResListOrder
-    post:
-      tags:
-      - listorder
-      summary: '"Shipper nhận đơn"'
-      description: Up Status Order
-      operationId: ListOrderController.Up Status Order
-      parameters:
-      - in: header
-        name: auth
-        description: token
-        required: true
-        type: string
-      - in: query
-        name: orderid
-        description: order id
-        required: true
-        type: string
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/responses.Response'
+          description: responses.Response
         "404":
           description: responses.Response
-  /listorder/shipper:
+  /food/listrand:
     get:
       tags:
-      - listorder
-      summary: '"Get danh sách order mà shipper đã nhận"'
-      description: Get List Order Shipper
-      operationId: ListOrderController.Get List Order Shipper
-      parameters:
-      - in: header
-        name: auth
-        description: token
-        required: true
-        type: string
+      - food
+      summary: '"Get List Food Rand"'
+      description: Get List Food Rand
+      operationId: FoodController.Get List Food Rand
       responses:
         "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/responses.ResListOrder'
-        "404":
-          description: responses.ResListOrder
-    post:
-      tags:
-      - listorder
-      summary: '"Shipper hoàn thành đơn"'
-      description: End Status Order
-      operationId: ListOrderController.End Status Order
-      parameters:
-      - in: header
-        name: auth
-        description: token
-        required: true
-        type: string
-      - in: query
-        name: orderid
-        description: order id
-        required: true
-        type: string
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/responses.Response'
+          description: responses.Response
         "404":
           description: responses.Response
-  /listorder/store:
-    post:
+  /food/listrandbycate:
+    get:
       tags:
-      - listorder
-      summary: '"Store nhận đơn"'
-      description: Store Accept Order
-      operationId: ListOrderController.Store Accept Order
-      parameters:
-      - in: header
-        name: auth
-        description: token
-        required: true
-        type: string
-      - in: query
-        name: orderid
-        description: order id
-        required: true
-        type: string
+      - food
+      summary: '"Get List Food Rand By Cate"'
+      description: Get List Food Rand By Cate
+      operationId: FoodController.Get List Food Rand By Cate
       responses:
         "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/responses.Response'
+          description: responses.Response
         "404":
           description: responses.Response
   /login/:
@@ -327,7 +250,7 @@ paths:
         "404":
           description: responses.ResStore
 definitions:
-  857.0xc0005fc3c0.false:
+  857.0xc0005a7bc0.false:
     title: "false"
     type: object
   models.Authorize:
@@ -524,7 +447,7 @@ definitions:
         type: string
       type:
         type: string
-      user_name:
+      username:
         type: string
   requests.CreateShipper:
     title: CreateShipper
@@ -538,7 +461,7 @@ definitions:
         type: string
       type:
         type: string
-      user_name:
+      username:
         type: string
   requests.CreateStore:
     title: CreateStore
@@ -550,7 +473,7 @@ definitions:
         type: string
       type:
         type: string
-      user_name:
+      username:
         type: string
   responses.Err:
     title: Err
@@ -622,6 +545,6 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/857.0xc0005fc3c0.false'
+        $ref: '#/definitions/857.0xc0005a7bc0.false'
       error:
         $ref: '#/definitions/responses.Err'

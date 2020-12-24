@@ -67,19 +67,21 @@ func (this *Shipper) GetTotalShipper() ([]Shipper, error) {
 }
 
 func (this *Shipper) CreateShipper(req requests.CreateShipper) (Shipper, error) {
-	var acc = Account{}
+	var acc = Account{
+		Username: req.Username,
+	}
 	_, err := acc.Getaccount()
 	if err == nil {
 		return Shipper{}, err
 	}
 	time := time.Now().UnixNano() / int64(time.Millisecond)
-	status := 1
+	status := "1"
 
 	data1, err := db.Prepare("INSERT INTO shipper(created_date, updated_date, name, phone) VALUES(?, ?, ?, ?);")
 	if err != nil {
 		return Shipper{}, err
 	}
-	_, err = data1.Exec(strconv.FormatInt(time, 10), strconv.FormatInt(time, 10), req.Name, req.Phone)
+	_, err = data1.Exec(time, time, req.Name, req.Phone)
 
 	num, err := GetDataByQuery("SELECT id FROM shipper ORDER BY id DESC LIMIT 1;")
 	if err != nil {
@@ -91,7 +93,7 @@ func (this *Shipper) CreateShipper(req requests.CreateShipper) (Shipper, error) 
 		return Shipper{}, err
 	}
 	i, _ := strconv.Atoi(req.Type)
-	_, err = data.Exec(time, time, req.UserName, req.Password, i, num[0]["id"].(string), strconv.Itoa(status))
+	_, err = data.Exec(time, time, req.Username, req.Password, i, num[0]["id"].(string), status)
 
 	if err != nil {
 		log.Println(err)

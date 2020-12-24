@@ -49,7 +49,7 @@ func (this *Customers) GetTotalCus(startTime, endTime int64) (string, error) {
 }
 
 func (this *Customers) GetTotalCustomer() ([]Customers, error) {
-	data, err := GetDataByQuery("select user.id as id, full_name as full_name, username as username, status as status from user,account where user.id = account.typeid and type = 3")
+	data, err := GetDataByQuery("select user.id as id, full_name as full_name, username as username, status as status, address, image_url, email, mobile from user,account where user.id = account.typeid and type = 3")
 	if err != nil {
 		return []Customers{}, err
 	}
@@ -85,21 +85,24 @@ func (this *Customers) GetInFo(id string) (Customers, error) {
 }
 
 func (this *Customers) CreateCustomer(req requests.CreateCustomer) (Customers, error) {
-	var acc = Account{}
+	var acc = Account{
+		Username: req.Username,
+	}
 	_, err := acc.Getaccount()
-
 	if err == nil {
 		return Customers{}, err
 	}
 	time := time.Now().UnixNano() / int64(time.Millisecond)
-	status := 1
+	status := "1"
 
 	data, err := db.Prepare("INSERT INTO user(created_date, updated_date, full_name, image_url, address, mobile, email) VALUES(?, ?, ?, ?, ?, ?, ?);")
 	if err != nil {
 		return Customers{}, err
 	}
 	_, err = data.Exec(time, time, req.FullName, req.ImageUrl, req.Address, req.Mobile, req.Email)
-
+	if err != nil {
+		return Customers{}, err
+	}
 	num, err := GetDataByQuery("SELECT id FROM user ORDER BY id DESC LIMIT 1;")
 	if err != nil {
 		return Customers{}, err
@@ -109,8 +112,11 @@ func (this *Customers) CreateCustomer(req requests.CreateCustomer) (Customers, e
 	if err != nil {
 		return Customers{}, err
 	}
-	i, _ := strconv.Atoi(req.Type)
-	_, err = data1.Exec(strconv.FormatInt(time, 10), strconv.FormatInt(time, 10), req.UserName, req.Password, i, num[0]["id"], strconv.Itoa(status))
+	i, err := strconv.Atoi(req.Type)
+	if err != nil {
+		return Customers{}, err
+	}
+	_, err = data1.Exec(time, time, req.Username, req.Password, i, num[0]["id"].(string), status)
 
 	if err != nil {
 		return Customers{}, err
