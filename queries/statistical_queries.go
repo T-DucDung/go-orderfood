@@ -15,7 +15,7 @@ func QueryGetUN(id string) string {
 }
 
 func QueryGetBSF(sid int, startTime, endTime int64) string {
-	return "SELECT COUNT(id) as total_count, food_id from go-orderfood where order_id IN (select id FROM `order` where order_status = 5 and store_id = " + strconv.Itoa(sid) + " and updated_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10) + ") GROUP BY  food_id  ORDER  by total_count DESC "
+	return "SELECT COUNT(id) as total_count, food_id from orderfood where order_id IN (select id FROM `order` where order_status = 5 and store_id = " + strconv.Itoa(sid) + " and updated_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10) + ") GROUP BY  food_id  ORDER  by total_count DESC "
 }
 
 func QueryGetFN(id string) string {
@@ -31,13 +31,13 @@ func QueryGetIdS(startTime, endTime int64) string {
 }
 
 func QueryGetCC(startTime, endTime int64) string {
-	return "select count(id) as soluong from account where type = and created_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10)
+	return "select count(id) as soluong from account where type = 3 and created_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10)
 }
 
 func QueryGetCS(startTime, endTime int64) string {
-	return "select count(id) as soluong from account where type = and created_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10)
+	return "select count(id) as soluong from account where type = 2 and created_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10)
 }
 
 func QueryGetR(startTime, endTime int64) string {
-	return "SELECT COUNT(id) as total_order, SUM(total_amount) as total_revenue from `order` where order_status = 5  and created_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10)
+	return "SELECT COUNT(id) as total_order, SUM(total_amount) as total_revenue from `order` where order_status = 4  and created_date BETWEEN " + strconv.FormatInt(startTime, 10) + " and " + strconv.FormatInt(endTime, 10)
 }

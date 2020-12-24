@@ -5,6 +5,50 @@
     },
     "basePath": "/v1",
     "paths": {
+        "/statistic/": {
+            "get": {
+                "tags": [
+                    "statistic"
+                ],
+                "summary": "\"Get thống kê \"",
+                "description": "Get Statictic",
+                "operationId": "StatisticController.Get Statictic",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "startTime",
+                        "description": "start time",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "endTime",
+                        "description": "end time",
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ResStatistic"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.ResStatistic"
+                    }
+                }
+            }
+        },
         "/statisticstore/": {
             "get": {
                 "tags": [
@@ -17,17 +61,9 @@
                     {
                         "in": "header",
                         "name": "auth",
-                        "description": "store id",
+                        "description": "token",
                         "required": true,
                         "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "sid",
-                        "description": "store id",
-                        "required": true,
-                        "type": "integer",
-                        "format": "int64"
                     },
                     {
                         "in": "query",
@@ -57,7 +93,7 @@
                 }
             }
         },
-        "/user/": {
+        "/user/login": {
             "post": {
                 "tags": [
                     "user"
@@ -69,7 +105,37 @@
                     {
                         "in": "body",
                         "name": "username",
-                        "description": "true",
+                        "description": "username",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Authorize"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/signup": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"Signup\"",
+                "description": "Signup",
+                "operationId": "UserController.Signup",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "username",
+                        "description": "username",
+                        "required": true,
                         "schema": {
                             "$ref": "#/definitions/models.Authorize"
                         }
@@ -143,6 +209,9 @@
                     }
                 },
                 "TotalCustomer": {
+                    "type": "string"
+                },
+                "TotalOrder": {
                     "type": "string"
                 },
                 "TotalShipper": {

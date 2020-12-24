@@ -15,6 +15,9 @@ func (this *Revenue) GetRevenueShop(sid int, startTime, endTime int64) (Revenue,
 	if err != nil {
 		return Revenue{}, err
 	}
+	if len(data) == 0 {
+		return Revenue{}, nil
+	}
 	bData, err := json.Marshal(data[0])
 	if err != nil {
 		return Revenue{}, err

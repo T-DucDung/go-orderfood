@@ -4,6 +4,8 @@ import (
 	"go-orderfood/models"
 	"go-orderfood/responses"
 	"go-orderfood/services"
+	"log"
+	"strconv"
 	"time"
 
 	"github.com/astaxie/beego"
@@ -16,8 +18,7 @@ type StatisticStoreController struct {
 //@Title Get Statictic Store
 //@Description Get Statictic Store
 //@Summary "Get thống kê một cửa hàng"
-// @Params auth header string true "store id"
-// @Params sid query int true "store id"
+// @Params auth header string true "token"
 // @Params startTime query int64 false "start time"
 // @Params endTime query int64 false "end time"
 //@Success 200 {object} responses.ResStatisticStore
@@ -25,7 +26,7 @@ type StatisticStoreController struct {
 //@router / [get]
 func (this *StatisticStoreController) GetStatisticStore() {
 	defer this.ServeJSON()
-	sid, err := this.GetInt("sid", -1)
+	sid, err := strconv.Atoi(this.Ctx.Request.Header.Get("Id"))
 	if err != nil {
 		this.Data["json"] = responses.ResStatisticStore{
 			Data:  models.StatisticStore{},
@@ -33,6 +34,16 @@ func (this *StatisticStoreController) GetStatisticStore() {
 		}
 		return
 	}
+	log.Println("this.Ctx.Request.Header ", this.Ctx.Request.Header)
+	typeid := this.Ctx.Request.Header.Get("Type")
+	if typeid != "1" {
+		this.Data["json"] = responses.ResStatisticStore{
+			Data:  models.StatisticStore{},
+			Error: responses.NewErr(responses.UnSuccess),
+		}
+		return
+	}
+	log.Println(sid)
 	endTime, err := this.GetInt64("endTime", time.Now().UnixNano()/int64(time.Millisecond))
 	if err != nil {
 		this.Data["json"] = responses.ResStatisticStore{

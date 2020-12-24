@@ -17,7 +17,7 @@ type UserController struct {
 //@Title Login
 //@Description Login
 //@Summary "Login"
-// @Params username body models.Authorize true
+// @Params username body models.Authorize true "username"
 //@Success 200
 //@Failure 404
 //@router /login [post]
@@ -49,21 +49,18 @@ func (this *UserController) Login() {
 //@Title Signup
 //@Description Signup
 //@Summary "Signup"
-// @Params username body true
-//@Success 200 string
-//@Failure 404 string
+// @Params username body models.Authorize true "username"
+//@Success 200
+//@Failure 404
 //@router /signup [post]
-func (this *UserController) Signup(){
+func (this *UserController) Signup() {
 	defer this.ServeJSON()
-	var acc models.Account
-
-	// this.Data["json"] = ""
 	// err := json.Unmarshal(this.Ctx.Input.RequestBody)
 	// if err != nil {
 	// 	this.Data["json"] = ""
 	// 	return
 	// }
-	
+
 	// if err != nil {
 	// 	this.Data["json"] = "sai"
 	// 	return

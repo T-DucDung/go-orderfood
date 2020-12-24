@@ -2,6 +2,7 @@ package models
 
 import (
 	"encoding/json"
+	"fmt"
 	"go-orderfood/queries"
 	"log"
 )
@@ -41,16 +42,7 @@ func (this *Customers) GetTotalCus(startTime, endTime int64) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	bData, err := json.Marshal(data[0])
-	if err != nil {
-		return "", err
-	}
-	soluong := ""
-	err = json.Unmarshal(bData, &soluong)
-	if err != nil {
-		return "", err
-	}
-	return soluong, nil
+	return fmt.Sprintf("%v", data[0]["soluong"]), nil
 }
 
 func (this *Customers) GetTotalCustomer() (Customers, error) {
