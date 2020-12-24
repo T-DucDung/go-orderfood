@@ -46,26 +46,114 @@ func (this *UserController) Login() {
 }
 
 // Define a struct to return user
-//@Title Signup
-//@Description Signup
-//@Summary "Signup"
+//@Title Create Customer
+//@Description Create Customer
+//@Summary "CreateCustomer"
+// @Params auth header string true "token"
 // @Params username body models.Authorize true "username"
 //@Success 200
 //@Failure 404
-//@router /signup [post]
-func (this *UserController) Signup() {
+//@router /creuser [post]
+func (this *UserController) CreateCustomer() {
 	defer this.ServeJSON()
-	// err := json.Unmarshal(this.Ctx.Input.RequestBody)
-	// if err != nil {
-	// 	this.Data["json"] = ""
-	// 	return
-	// }
+	var acc models.Account
+	typeid := this.Ctx.Request.Header.Get("Type")
+	if typeid != "0"{
+		this.Data["json"] = responses.ResCustomer{
+			Data:  models.Customers{},
+			Error: responses.NewErr(responses.UnSuccess),
+		}
+		return
+	}
+	err := json.Unmarshal(this.Ctx.Input.RequestBody, &acc)
+	if err != nil {
+		this.Data["json"] = ""
+		return
+	}
+	_ ,err = acc.CreateAcc()
+	if err != nil {
+		this.Data["json"] = responses.ResCustomer{
+			Data:  models.Customers{},
+			Error: responses.NewErr(responses.UnSuccess),
+		}
+		return
+	}
+	this.Data["json"] = ""
+	return
+}
 
-	// if err != nil {
-	// 	this.Data["json"] = "sai"
-	// 	return
-	// }
-	// this.Data["json"] = ""
+// Define a struct to return store
+//@Title Create Store
+//@Description Create Store
+//@Summary "CreateStore"
+// @Params auth header string true "token"
+// @Params username body models.Authorize true "username"
+//@Success 200
+//@Failure 404
+//@router /crestore [post]
+func (this *UserController) CreateStore() {
+	defer this.ServeJSON()
+	var acc models.Account
+	typeid := this.Ctx.Request.Header.Get("Type")
+	if typeid != "0"{
+		this.Data["json"] = responses.ResStore{
+			Data:  models.Store{},
+			Error: responses.NewErr(responses.UnSuccess),
+		}
+		return
+	}
+	err := json.Unmarshal(this.Ctx.Input.RequestBody, &acc)
+	if err != nil {
+		this.Data["json"] = ""
+		return
+	}
+	_ ,err = acc.CreateAcc()
+	if err != nil {
+		this.Data["json"] = responses.ResStore{
+			Data:  models.Store{},
+			Error: responses.NewErr(responses.UnSuccess),
+		}
+		return
+	}
+	this.Data["json"] = ""
+	return
+}
+
+
+// Define a struct to return shipper
+//@Title Create Shipper
+//@Description Create Shipper
+//@Summary "CreateShipper"
+// @Params auth header string true "token"
+// @Params username body models.Authorize true "username"
+//@Success 200
+//@Failure 404
+//@router /creshipper [post]
+func (this *UserController) CreateShipper() {
+	defer this.ServeJSON()
+	var acc models.Account
+	typeid := this.Ctx.Request.Header.Get("Type")
+	if typeid != "0"{
+		this.Data["json"] = responses.ResShipper{
+			Data:  models.Shipper{},
+			Error: responses.NewErr(responses.UnSuccess),
+		}
+		return
+	}
+	err := json.Unmarshal(this.Ctx.Input.RequestBody, &acc)
+	if err != nil {
+		this.Data["json"] = ""
+		return
+	}
+	_ ,err = acc.CreateAcc()
+	if err != nil {
+		this.Data["json"] = responses.ResShipper{
+			Data:  models.Shipper{},
+			Error: responses.NewErr(responses.UnSuccess),
+		}
+		return
+	}
+	this.Data["json"] = ""
 	return
 }
 
@@ -110,7 +198,7 @@ func (this *UserController) GetCustomer() (){
 // @Params auth header string true "token"
 //@Success 200 {object} responses.ResStore
 //@Failure 404 responses.ResStore
-//@router / [get]
+//@router /store [get]
 func (this *UserController) GetStore() (){
 	defer this.ServeJSON()
 	var store models.Store
@@ -144,7 +232,7 @@ func (this *UserController) GetStore() (){
 // @Params auth header string true "token"
 //@Success 200 {object} responses.ResShipper
 //@Failure 404 responses.ResShipper
-//@router / [get]
+//@router /shipper [get]
 func (this * UserController) GetShipper(){
 	defer this.ServeJSON()
 	var shipper models.Shipper
