@@ -41,11 +41,7 @@ func (this *Shipper) GetInfoShipper(id string) (Shipper, error) {
 	return s, nil
 }
 
-<<<<<<< HEAD
 func (this *Shipper) GetTotalShipper() (Shipper, error){
-=======
-func (this *Shipper) GetTotalCustomer() (Shipper, error) {
->>>>>>> 6e750d8c2a276fde93c0da5c66b4aae3ff713af1
 	data, err := GetDataByQuery("select shipper.id as id, name as name, phone as phone, username as username, status as status from shipper,account where shipper.id = account.typeid and type = 2")
 	if err != nil {
 		return Shipper{}, err

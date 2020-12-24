@@ -58,15 +58,12 @@ func (this *Store) GetID(startTime, endTime int64) ([]LString, error) {
 	return ls, err
 }
 
-<<<<<<< HEAD
-func (this *Store) GetTotalStore() (Store, error){
-=======
+
 type LString struct {
 	ID string `json:"id" xml:"id"`
 }
 
-func (this *Store) GetTotalCustomer() (Store, error) {
->>>>>>> 6e750d8c2a276fde93c0da5c66b4aae3ff713af1
+func (this *Store) GetTotalStore() (Store, error) {
 	data, err := GetDataByQuery("select store.id as id, name as name, username as username, status as status, rate_avg as rate_avg from store,account where store.id = account.typeid and type=1")
 	if err != nil {
 		return Store{}, err
