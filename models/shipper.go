@@ -29,7 +29,7 @@ func (this *Shipper) GetTotalShi(startTime, endTime int64) (string, error) {
 	return soluong, nil
 }
 
-func (this *Shipper) GetTotalCustomer() (Shipper, error){
+func (this *Shipper) GetTotalShipper() (Shipper, error){
 	data, err := GetDataByQuery("select shipper.id as id, name as name, phone as phone, username as username, status as status from shipper,account where shipper.id = account.typeid and type = 2")
 	if err != nil {
 		return Shipper{}, err

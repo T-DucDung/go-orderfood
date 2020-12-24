@@ -56,7 +56,7 @@ func (this *Store) GetID(startTime, endTime int64) ([]string, error) {
 	return ls, err
 }
 
-func (this *Store) GetTotalCustomer() (Store, error){
+func (this *Store) GetTotalStore() (Store, error){
 	data, err := GetDataByQuery("select store.id as id, name as name, username as username, status as status, rate_avg as rate_avg from store,account where store.id = account.typeid and type=1")
 	if err != nil {
 		return Store{}, err
