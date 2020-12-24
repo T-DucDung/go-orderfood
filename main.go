@@ -27,6 +27,7 @@ func main() {
 	beego.InsertFilter("/v1/statisticstore/*", beego.BeforeRouter, middlewares.Jwt)
 	beego.InsertFilter("/v1/statistic/*", beego.BeforeRouter, middlewares.Jwt)
 	beego.InsertFilter("/v1/listorder/*", beego.BeforeRouter, middlewares.Jwt)
+	beego.InsertFilter("/v1/user/*", beego.BeforeRouter, middlewares.Jwt)
 
 	// beego.InsertFilter("*", beego.BeforeRouter)
 

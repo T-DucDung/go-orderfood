@@ -3,7 +3,10 @@ package models
 import (
 	"encoding/json"
 	"go-orderfood/queries"
+	"go-orderfood/requests"
 	"log"
+	"strconv"
+	"time"
 )
 
 type Store struct {
@@ -58,26 +61,59 @@ func (this *Store) GetID(startTime, endTime int64) ([]LString, error) {
 	return ls, err
 }
 
-
 type LString struct {
 	ID string `json:"id" xml:"id"`
 }
 
-func (this *Store) GetTotalStore() (Store, error) {
+func (this *Store) GetTotalStore() ([]Store, error) {
 	data, err := GetDataByQuery("select store.id as id, name as name, username as username, status as status, rate_avg as rate_avg from store,account where store.id = account.typeid and type=1")
 	if err != nil {
-		return Store{}, err
+		return []Store{}, err
 	}
-	bData, err := json.Marshal(data[0])
+	bData, err := json.Marshal(data)
 	if err != nil {
-		return Store{}, err
+		return []Store{}, err
 	}
-	store := Store{}
+	store := []Store{}
 	err = json.Unmarshal(bData, &store)
 	if err != nil {
 		log.Println(err)
 		log.Println(store)
-		return Store{}, err
+		return []Store{}, err
 	}
 	return store, nil
+}
+
+func (this *Store) CreateStore(req requests.CreateStore) (Store, error) {
+	var acc = Account{}
+	_, err := acc.Getaccount()
+	if err == nil {
+		return Store{}, err
+	}
+	time := time.Now().UnixNano() / int64(time.Millisecond)
+	status := 1
+
+	data1, err := db.Prepare("INSERT INTO store(created_date, updated_date, name, rate_avg, rate_one, rate_two, rate_three, rate_four, rate_five) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);")
+	if err != nil {
+		return Store{}, err
+	}
+	_, err = data1.Exec(time, time, req.Name, 0, 0, 0, 0, 0, 0)
+
+	num, err := GetDataByQuery("SELECT id FROM store ORDER BY id DESC LIMIT 1;")
+	if err != nil {
+		return Store{}, err
+	}
+
+	data, err := db.Prepare("INSERT INTO account(created_date, updated_date, username, password, type, typeid, status) VALUES(?, ?, ?, ?, ?, ?, ?);")
+	if err != nil {
+		return Store{}, err
+	}
+	i, _ := strconv.Atoi(req.Type)
+	_, err = data.Exec(time, time, req.UserName, req.Password, i, num[0]["id"].(string), strconv.Itoa(status))
+
+	if err != nil {
+		log.Println(err)
+		return Store{}, err
+	}
+	return Store{}, nil
 }

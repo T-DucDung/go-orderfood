@@ -172,6 +172,35 @@
                 }
             }
         },
+        "/login/": {
+            "post": {
+                "tags": [
+                    "login"
+                ],
+                "summary": "\"Login\"",
+                "description": "Login",
+                "operationId": "LoginController.Login",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "username",
+                        "description": "username",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Authorize"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/statistic/": {
             "get": {
                 "tags": [
@@ -260,22 +289,29 @@
                 }
             }
         },
-        "/user/login": {
+        "/user/creshipper": {
             "post": {
                 "tags": [
                     "user"
                 ],
-                "summary": "\"Login\"",
-                "description": "Login",
-                "operationId": "UserController.Login",
+                "summary": "\"CreateShipper\"",
+                "description": "Create Shipper",
+                "operationId": "UserController.Create Shipper",
                 "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
                     {
                         "in": "body",
                         "name": "username",
                         "description": "username",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Authorize"
+                            "$ref": "#/definitions/requests.CreateShipper"
                         }
                     }
                 ],
@@ -289,22 +325,29 @@
                 }
             }
         },
-        "/user/signup": {
+        "/user/crestore": {
             "post": {
                 "tags": [
                     "user"
                 ],
-                "summary": "\"Signup\"",
-                "description": "Signup",
-                "operationId": "UserController.Signup",
+                "summary": "\"CreateStore\"",
+                "description": "Create Store",
+                "operationId": "UserController.Create Store",
                 "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
                     {
                         "in": "body",
                         "name": "username",
                         "description": "username",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Authorize"
+                            "$ref": "#/definitions/requests.CreateStore"
                         }
                     }
                 ],
@@ -317,10 +360,136 @@
                     }
                 }
             }
+        },
+        "/user/creuser": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"CreateCustomer\"",
+                "description": "Create Customer",
+                "operationId": "UserController.Create Customer",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "username",
+                        "description": "username",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.CreateCustomer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/customer": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"Get toàn bộ thông tin khách hàng\"",
+                "description": "Get All Customer",
+                "operationId": "UserController.Get All Customer",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ResCustomer"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.ResCustomer"
+                    }
+                }
+            }
+        },
+        "/user/shipper": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"Get toàn bộ thông tin người giao hàng\"",
+                "description": "Get All Shipper",
+                "operationId": "UserController.Get All Shipper",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ResShipper"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.ResShipper"
+                    }
+                }
+            }
+        },
+        "/user/store": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"Get toàn bộ thông tin Cửa hàng\"",
+                "description": "Get All Store",
+                "operationId": "UserController.Get All Store",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ResStore"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.ResStore"
+                    }
+                }
+            }
         }
     },
     "definitions": {
-        "693.0xc00057f500.false": {
+        "857.0xc0005fc3c0.false": {
             "title": "false",
             "type": "object"
         },
@@ -347,6 +516,36 @@
                     "type": "string"
                 },
                 "total_count": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Customers": {
+            "title": "Customers",
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "image_url": {
+                    "type": "string"
+                },
+                "mobile": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "username": {
                     "type": "string"
                 }
             }
@@ -432,6 +631,30 @@
                 }
             }
         },
+        "models.Shipper": {
+            "title": "Shipper",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
         "models.Statistic": {
             "title": "Statistic",
             "type": "object",
@@ -492,6 +715,117 @@
                 }
             }
         },
+        "models.Store": {
+            "title": "Store",
+            "type": "object",
+            "properties": {
+                "create_date": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "rate_avg": {
+                    "type": "string"
+                },
+                "rate_five": {
+                    "type": "string"
+                },
+                "rate_four": {
+                    "type": "string"
+                },
+                "rate_one": {
+                    "type": "string"
+                },
+                "rate_three": {
+                    "type": "string"
+                },
+                "rate_two": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "update_date": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "requests.CreateCustomer": {
+            "title": "CreateCustomer",
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "image_url": {
+                    "type": "string"
+                },
+                "mobile": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "requests.CreateShipper": {
+            "title": "CreateShipper",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "requests.CreateStore": {
+            "title": "CreateStore",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
         "responses.Err": {
             "title": "Err",
             "type": "object",
@@ -505,6 +839,21 @@
                 }
             }
         },
+        "responses.ResCustomer": {
+            "title": "ResCustomer",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Customers"
+                    }
+                },
+                "error": {
+                    "$ref": "#/definitions/responses.Err"
+                }
+            }
+        },
         "responses.ResListOrder": {
             "title": "ResListOrder",
             "type": "object",
@@ -513,6 +862,21 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/models.Order"
+                    }
+                },
+                "error": {
+                    "$ref": "#/definitions/responses.Err"
+                }
+            }
+        },
+        "responses.ResShipper": {
+            "title": "ResShipper",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Shipper"
                     }
                 },
                 "error": {
@@ -544,12 +908,27 @@
                 }
             }
         },
+        "responses.ResStore": {
+            "title": "ResStore",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Store"
+                    }
+                },
+                "error": {
+                    "$ref": "#/definitions/responses.Err"
+                }
+            }
+        },
         "responses.Response": {
             "title": "Response",
             "type": "object",
             "properties": {
                 "data": {
-                    "$ref": "#/definitions/693.0xc00057f500.false"
+                    "$ref": "#/definitions/857.0xc0005fc3c0.false"
                 },
                 "error": {
                     "$ref": "#/definitions/responses.Err"

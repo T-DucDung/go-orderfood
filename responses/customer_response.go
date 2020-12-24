@@ -5,6 +5,6 @@ import (
 )
 
 type ResCustomer struct {
-	Data  models.Customers	 `json:"data"`
-	Error *Err          	 `json:"error"`
+	Data  []models.Customers `json:"data"`
+	Error *Err               `json:"error"`
 }

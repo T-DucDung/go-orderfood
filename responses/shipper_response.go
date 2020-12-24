@@ -5,6 +5,6 @@ import (
 )
 
 type ResShipper struct {
-	Data  models.Shipper	 `json:"data"`
-	Error *Err          	 `json:"error"`
+	Data  []models.Shipper `json:"data"`
+	Error *Err             `json:"error"`
 }

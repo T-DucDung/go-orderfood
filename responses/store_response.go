@@ -5,6 +5,6 @@ import (
 )
 
 type ResStore struct {
-	Data  models.Store	 `json:"data"`
+	Data  []models.Store `json:"data"`
 	Error *Err           `json:"error"`
 }
