@@ -34,7 +34,6 @@ func (this *StatisticStoreController) GetStatisticStore() {
 		}
 		return
 	}
-	log.Println("this.Ctx.Request.Header ", this.Ctx.Request.Header)
 	typeid := this.Ctx.Request.Header.Get("Type")
 	if typeid != "1" {
 		this.Data["json"] = responses.ResStatisticStore{

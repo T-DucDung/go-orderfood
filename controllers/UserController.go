@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"go-orderfood/models"
+	"go-orderfood/responses"
 	"go-orderfood/services"
 
 	"github.com/astaxie/beego"
@@ -25,7 +26,7 @@ func (this *UserController) Login() {
 	var auth models.Authorize
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &auth)
 	if err != nil {
-		this.Data["json"] = ""
+		this.Data["json"] = responses.Response{Data: "", Error: &responses.Err{Code: 201, Message: "Error"}}
 		return
 	}
 	cusIns := models.Account{
@@ -33,14 +34,15 @@ func (this *UserController) Login() {
 	}
 	cus, err := cusIns.Getaccount()
 	if err != nil {
-		this.Data["json"] = "sai"
+		this.Data["json"] = responses.Response{Data: "", Error: &responses.Err{Code: 201, Message: "Error"}}
 		return
 	}
 	if auth.Password == cus.Password {
-		this.Data["json"], _ = services.CreateToken(cus.Typeid, cus.Type)
+		token, _ := services.CreateToken(cus.Typeid, cus.Type)
+		this.Data["json"] = responses.Response{Data: token, Error: &responses.Err{Code: 200, Message: "Success"}}
 		return
 	}
-	this.Data["json"] = ""
+	this.Data["json"] = responses.Response{Data: "", Error: &responses.Err{Code: 201, Message: "Error"}}
 	return
 
 }

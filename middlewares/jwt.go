@@ -3,7 +3,6 @@ package middlewares
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"go-orderfood/responses"
 
 	"net/http"
@@ -16,14 +15,11 @@ const key = "namdzvcl"
 
 var Jwt = func(ctx *context.Context) {
 	auth := ctx.Request.Header["Auth"]
-	fmt.Println(ctx.Request.Header)
-	fmt.Println(auth)
 	if len(auth) < 1 {
 		ctx.Output.JSON(responses.UnAuthResponse, true, true)
 		ctx.ResponseWriter.WriteHeader(http.StatusUnauthorized)
 		return
 	}
-	fmt.Println("jwt middleware")
 	payload, err := ParseToken(auth[0])
 
 	if err != nil {
@@ -31,8 +27,11 @@ var Jwt = func(ctx *context.Context) {
 		ctx.ResponseWriter.WriteHeader(http.StatusUnauthorized)
 		return
 	}
+	// log.Println(payload["type_id"].(string))
+	// log.Println(payload["type"].(string))
 	ctx.Request.Header.Set("id", payload["type_id"].(string))
 	ctx.Request.Header.Set("type", payload["type"].(string))
+	// log.Println(ctx.Request.Header)
 }
 
 func ParseToken(tokenString string) (map[string]interface{}, error) {
@@ -40,7 +39,9 @@ func ParseToken(tokenString string) (map[string]interface{}, error) {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return []byte(key), nil
 	})
-
+	if token == nil {
+		return nil, errors.New("Token nil")
+	}
 	if token.Valid {
 		var payload map[string]interface{}
 		bytes, e := json.Marshal(token.Claims)

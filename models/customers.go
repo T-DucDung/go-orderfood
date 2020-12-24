@@ -11,7 +11,7 @@ type Customers struct {
 	ID       string `json:"id" xml:"id"`
 	FullName string `json:"full_name" xml:"full_name"`
 	Username string `json:"username" xml:"username"`
-	Status   int    `json:"status" xml:"status"`
+	Status   string `json:"status" xml:"status"`
 	ImageUrl string `xml:"image_url" json:"image_url"`
 	Address  string `xml:"address" json:"address"`
 	Mobile   string `xml:"mobile" json:"mobile"`
@@ -62,4 +62,21 @@ func (this *Customers) GetTotalCustomer() (Customers, error) {
 		return Customers{}, err
 	}
 	return cus, nil
+}
+
+func (this *Customers) GetInFo(id string) (Customers, error) {
+	data, err := GetDataByQuery(queries.QueryGetInfoCus(id))
+	if err != nil {
+		return Customers{}, err
+	}
+	bData, err := json.Marshal(data[0])
+	if err != nil {
+		return Customers{}, err
+	}
+	c := Customers{}
+	err = json.Unmarshal(bData, &c)
+	if err != nil {
+		return Customers{}, err
+	}
+	return c, err
 }
