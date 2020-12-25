@@ -131,3 +131,7 @@ func (this *Order) EndStatus(ido, ids string) error {
 func (this *Order) UpStatusStore(id string) error {
 	return ExecNonQuery(queries.QueryUpStoreOrStatus(id))
 }
+
+// func (this *Order) CreateOrder() error {
+
+// }

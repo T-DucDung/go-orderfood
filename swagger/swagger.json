@@ -23,6 +23,38 @@
                 }
             }
         },
+        "/food/list": {
+            "get": {
+                "tags": [
+                    "food"
+                ],
+                "summary": "\"Get List Food",
+                "description": "Get List Food",
+                "operationId": "FoodController.Get List Food",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "name",
+                        "description": "name",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "cate",
+                        "description": "type",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "responses.Response"
+                    },
+                    "404": {
+                        "description": "responses.Response"
+                    }
+                }
+            }
+        },
         "/food/listrand": {
             "get": {
                 "tags": [
@@ -52,6 +84,200 @@
                 "responses": {
                     "200": {
                         "description": "responses.Response"
+                    },
+                    "404": {
+                        "description": "responses.Response"
+                    }
+                }
+            }
+        },
+        "/food/liststore": {
+            "get": {
+                "tags": [
+                    "food"
+                ],
+                "summary": "\"Get List Food In Store\"",
+                "description": "Get List Food In Store",
+                "operationId": "FoodController.Get List Food In Store",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "sid",
+                        "description": "sid",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "responses.Response"
+                    },
+                    "404": {
+                        "description": "responses.Response"
+                    }
+                }
+            }
+        },
+        "/listorder/": {
+            "get": {
+                "tags": [
+                    "listorder"
+                ],
+                "summary": "\"Get danh sách order \"",
+                "description": "Get List Order",
+                "operationId": "ListOrderController.Get List Order",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ResListOrder"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.ResListOrder"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "listorder"
+                ],
+                "summary": "\"Shipper nhận đơn\"",
+                "description": "Up Status Order",
+                "operationId": "ListOrderController.Up Status Order",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "orderid",
+                        "description": "order id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.Response"
+                    }
+                }
+            }
+        },
+        "/listorder/shipper": {
+            "get": {
+                "tags": [
+                    "listorder"
+                ],
+                "summary": "\"Get danh sách order mà shipper đã nhận\"",
+                "description": "Get List Order Shipper",
+                "operationId": "ListOrderController.Get List Order Shipper",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ResListOrder"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.ResListOrder"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "listorder"
+                ],
+                "summary": "\"Shipper hoàn thành đơn\"",
+                "description": "End Status Order",
+                "operationId": "ListOrderController.End Status Order",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "orderid",
+                        "description": "order id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.Response"
+                    }
+                }
+            }
+        },
+        "/listorder/store": {
+            "post": {
+                "tags": [
+                    "listorder"
+                ],
+                "summary": "\"Store nhận đơn\"",
+                "description": "Store Accept Order",
+                "operationId": "ListOrderController.Store Accept Order",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "orderid",
+                        "description": "order id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Response"
+                        }
                     },
                     "404": {
                         "description": "responses.Response"
@@ -376,7 +602,7 @@
         }
     },
     "definitions": {
-        "857.0xc0005a7bc0.false": {
+        "857.0xc000650ed0.false": {
             "title": "false",
             "type": "object"
         },
@@ -815,7 +1041,7 @@
             "type": "object",
             "properties": {
                 "data": {
-                    "$ref": "#/definitions/857.0xc0005a7bc0.false"
+                    "$ref": "#/definitions/857.0xc000650ed0.false"
                 },
                 "error": {
                     "$ref": "#/definitions/responses.Err"

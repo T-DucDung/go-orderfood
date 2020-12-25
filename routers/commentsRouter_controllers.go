@@ -18,6 +18,15 @@ func init() {
 
     beego.GlobalControllerRouter["go-orderfood/controllers:FoodController"] = append(beego.GlobalControllerRouter["go-orderfood/controllers:FoodController"],
         beego.ControllerComments{
+            Method: "GetListFood",
+            Router: "/list",
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["go-orderfood/controllers:FoodController"] = append(beego.GlobalControllerRouter["go-orderfood/controllers:FoodController"],
+        beego.ControllerComments{
             Method: "GetListFoodRand",
             Router: "/listrand",
             AllowHTTPMethods: []string{"get"},
@@ -29,6 +38,15 @@ func init() {
         beego.ControllerComments{
             Method: "GetListFoodRandByCate",
             Router: "/listrandbycate",
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["go-orderfood/controllers:FoodController"] = append(beego.GlobalControllerRouter["go-orderfood/controllers:FoodController"],
+        beego.ControllerComments{
+            Method: "GetFoodStore",
+            Router: "/liststore",
             AllowHTTPMethods: []string{"get"},
             MethodParams: param.Make(),
             Filters: nil,
