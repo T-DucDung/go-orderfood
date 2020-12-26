@@ -685,7 +685,7 @@ paths:
         "404":
           description: responses.ResStore
 definitions:
-  857.0xc00062dda0.false:
+  857.0xc0006590b0.false:
     title: "false"
     type: object
   models.Authorize:
@@ -1045,6 +1045,6 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/857.0xc00062dda0.false'
+        $ref: '#/definitions/857.0xc0006590b0.false'
       error:
         $ref: '#/definitions/responses.Err'

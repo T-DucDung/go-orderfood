@@ -9,7 +9,7 @@ func QueryGetShip(id string) string {
 }
 
 func QueryGetListFood(id string) string {
-	return "select o.food_id, f.name, o.quantity, o.price from orderfood o, food f where o.food_id  = f.id and o.id  = " + id
+	return "select o.food_id as id_food, f.name as name , o.quantity as quantity, o.price as price from orderfood o, food f where o.food_id  = f.id and o.order_id  = " + id
 }
 
 func QueryGetIDOrUs(id string) string {

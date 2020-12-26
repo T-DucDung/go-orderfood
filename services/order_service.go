@@ -32,7 +32,7 @@ func GetLsOrderUser(id string) ([]models.Order, error) {
 			return []models.Order{}, err
 		}
 		lsor[index].NameShop = store.Name
-		lf, err := GetListFood(o.ShopID)
+		lf, err := GetListFood(o.ID)
 		if err != nil {
 			log.Println("err 4", err)
 
@@ -101,7 +101,7 @@ func GetLsOrderShipper() ([]models.Order, error) {
 			return []models.Order{}, err
 		}
 		lsor[index].NameShop = store.Name
-		lf, err := GetListFood(o.ShopID)
+		lf, err := GetListFood(o.ID)
 		if err != nil {
 			log.Println("err 4", err)
 
