@@ -123,7 +123,7 @@ func (this *FoodController) GetListFood() {
 // @Params sid query string true "sid"
 //@Success 200 responses.Response
 //@Failure 404 responses.Response
-//@router /liststore [get]
+//@router /listfoodstore [get]
 func (this *FoodController) GetFoodStore() {
 	defer this.ServeJSON()
 	sid := this.GetString("sid")
@@ -138,19 +138,24 @@ func (this *FoodController) GetFoodStore() {
 	this.Data["json"] = responses.Response{Data: ls, Error: &responses.Err{Code: 200, Message: "Error"}}
 }
 
-// //@Title Get List Store
-// //@Description Get List Store
-// //@Summary "Get List Store"
-// //@Success 200 responses.Response
-// //@Failure 404 responses.Response
-// //@router /store [get]
-// func (this *FoodController) GetListStore() {
-// 	defer this.ServeJSON()
-// 	c := models.Food{}
-// 	ls, err := c.GetRandFood()
-// 	if err != nil {
-// 		this.Data["json"] = responses.Response{Data: "", Error: &responses.Err{Code: 201, Message: "Error"}}
-// 		return
-// 	}
-// 	this.Data["json"] = responses.Response{Data: ls, Error: &responses.Err{Code: 200, Message: "Error"}}
-// }
+//@Title Get List Store
+//@Description Get List Store
+//@Summary "Get List Store"
+//@Success 200 responses.Response
+//@Failure 404 responses.Response
+//@router /store [get]
+func (this *FoodController) GetListStore() {
+	defer this.ServeJSON()
+	s := models.Store{}
+	ls, err := s.GetAllStore()
+	if err != nil {
+		this.Data["json"] = responses.Response{Data: "", Error: &responses.Err{Code: 201, Message: "Error"}}
+		return
+	}
+	ls, err = s.AddImg(ls)
+	if err != nil {
+		this.Data["json"] = responses.Response{Data: "", Error: &responses.Err{Code: 201, Message: "Error"}}
+		return
+	}
+	this.Data["json"] = responses.Response{Data: ls, Error: &responses.Err{Code: 200, Message: "Error"}}
+}

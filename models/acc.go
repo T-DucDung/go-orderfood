@@ -38,31 +38,6 @@ func (this *Account) Getaccount() (Account, error) {
 	return acc, nil
 }
 
-// func (this *Account) GetAccountById() (Account, error) {
-// 	data, err := db.Prepare("select count(*) from account where account.type = ? and account.typeid= ?")
-// 	if err != nil {
-// 		return Account{}, err
-// 	}
-// 	_, err = data.Exec()
-
-// 	if err != nil {
-// 		return Account{}, err
-// 	}
-// 	if len(data) == 0 {
-// 		return Account{}, errors.New("User's not exist")
-// 	}
-// 	bData, err := json.Marshal(data[0])
-// 	if err != nil {
-// 		return Account{}, err
-// 	}
-// 	acc := Account{}
-// 	err = json.Unmarshal(bData, &acc)
-// 	if err != nil {
-// 		return Account{}, err
-// 	}
-// 	return acc, nil
-// }
-
 func (this *Account) CreateAcc() (Account, error) {
 	_, err := this.Getaccount()
 

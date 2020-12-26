@@ -4,6 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"go-orderfood/queries"
+	"go-orderfood/requests"
+	"strconv"
+	"time"
 )
 
 type Order struct {
@@ -132,6 +135,36 @@ func (this *Order) UpStatusStore(id string) error {
 	return ExecNonQuery(queries.QueryUpStoreOrStatus(id))
 }
 
-// func (this *Order) CreateOrder() error {
-
-// }
+func (this *Order) CreateOrder(o requests.ReqOrder, sid string) error {
+	t := time.Now().UnixNano() / int64(time.Millisecond)
+	data, err := db.Prepare("INSERT INTO `order` (created_date,updated_date,order_status,user_id,address,store_id,shipper_id, options_orderfood) values(?,?,?,?,?,?,?,?);")
+	if err != nil {
+		return err
+	}
+	_, err = data.Exec(t, t, 1, sid, o.Address, o.StoreID, 0, o.OptionsOrderfood)
+	if err != nil {
+		return err
+	}
+	d, err := GetDataByQuery("select id from `order` order by id desc limit 1")
+	if err != nil {
+		return err
+	}
+	total := 0
+	for _, item := range o.ListFood {
+		data, err = db.Prepare("INSERT INTO orderfood (created_date,updated_date,order_id,food_id,quantity,price) values(?,?,?,?,?,?)")
+		if err != nil {
+			return err
+		}
+		f := Food{}
+		p, err := f.Price(item.IDFood, item.Quantity)
+		if err != nil {
+			return err
+		}
+		total = total + p
+		_, err = data.Exec(t, t, d[0]["id"], item.IDFood, item.Quantity, p)
+		if err != nil {
+			return err
+		}
+	}
+	return ExecNonQuery("update `order` set total_amount = " + strconv.Itoa(total) + " , order_status = 2 where id = " + d[0]["id"].(string))
+}

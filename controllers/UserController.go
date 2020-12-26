@@ -249,7 +249,7 @@ func (this *UserController) GetShipper() {
 //@Summary "Kích hoat tài khoản khách hàng"
 // @Params auth header string true "token"
 // @Param data body requests.DeactivateAcc true "body"
-//@Success 200 
+//@Success 200
 //@Failure 404
 //@router /activeuser [put]
 func (this *UserController) ActivateCustomerAPI() {
@@ -267,7 +267,7 @@ func (this *UserController) ActivateCustomerAPI() {
 		this.Data["json"] = responses.Response{Data: "", Error: &responses.Err{Code: 401, Message: "Error at json.Unmarshal"}}
 		return
 	}
-	
+
 	err = cus.ActivateCustomer(req)
 	// log.Println(err)
 	if err != nil {
@@ -284,7 +284,7 @@ func (this *UserController) ActivateCustomerAPI() {
 //@Summary "Vô hiệu hoá tài khoản khách hàng"
 // @Params auth header string true "token"
 // @Param data body requests.DeactivateAcc true "body"
-//@Success 200 
+//@Success 200
 //@Failure 404
 //@router /deactiveuser [put]
 func (this *UserController) DeactivateCustomerAPI() {
@@ -302,7 +302,7 @@ func (this *UserController) DeactivateCustomerAPI() {
 		this.Data["json"] = responses.Response{Data: "", Error: &responses.Err{Code: 403, Message: "Permission Not Allowed"}}
 		return
 	}
-	
+
 	err = cus.DeactivateCustomer(req)
 	// log.Println(err)
 	if err != nil {
@@ -313,14 +313,13 @@ func (this *UserController) DeactivateCustomerAPI() {
 	return
 }
 
-
 // Define a struct
 //@Title Update Status Shipper
 //@Description Update Status Shipper
 //@Summary "Kích tài khoản shipper"
 // @Params auth header string true "token"
 // @Param data body requests.DeactivateAcc true "body"
-//@Success 200 
+//@Success 200
 //@Failure 404
 //@router /activeshipper [put]
 func (this *UserController) ActivateShipperAPI() {
@@ -338,7 +337,7 @@ func (this *UserController) ActivateShipperAPI() {
 		this.Data["json"] = responses.Response{Data: "", Error: &responses.Err{Code: 401, Message: "Error at json.Unmarshal"}}
 		return
 	}
-	
+
 	err = shipper.ActivateShipper(req)
 	// log.Println(err)
 	if err != nil {
@@ -355,7 +354,7 @@ func (this *UserController) ActivateShipperAPI() {
 //@Summary "Vô hiệu hoá tài khoản Shipper"
 // @Params auth header string true "token"
 // @Param data body requests.DeactivateAcc true "body"
-//@Success 200 
+//@Success 200
 //@Failure 404
 //@router /deactiveshipper [put]
 func (this *UserController) DeactivateShipperAPI() {
@@ -374,7 +373,7 @@ func (this *UserController) DeactivateShipperAPI() {
 		this.Data["json"] = responses.Response{Data: "", Error: &responses.Err{Code: 403, Message: "Permission Not Allowed"}}
 		return
 	}
-	
+
 	err = shipper.DeactivateShipper(req)
 	// log.Println(err)
 	if err != nil {
@@ -385,14 +384,13 @@ func (this *UserController) DeactivateShipperAPI() {
 	return
 }
 
-
 // Define a struct
 //@Title Update Status Store
 //@Description Update Status Store
 //@Summary "Kích tài khoản Store"
 // @Params auth header string true "token"
 // @Param data body requests.DeactivateAcc true "body"
-//@Success 200 
+//@Success 200
 //@Failure 404
 //@router /activestore [put]
 func (this *UserController) ActivateStoreAPI() {
@@ -410,7 +408,7 @@ func (this *UserController) ActivateStoreAPI() {
 		this.Data["json"] = responses.Response{Data: "", Error: &responses.Err{Code: 401, Message: "Error at json.Unmarshal"}}
 		return
 	}
-	
+
 	err = store.ActivateStore(req)
 	// log.Println(err)
 	if err != nil {
@@ -421,14 +419,13 @@ func (this *UserController) ActivateStoreAPI() {
 	return
 }
 
-
 // Define a struct
 //@Title Update Status Store
 //@Description Update Status Store
 //@Summary "Vô hiệu hoá tài khoản Store"
 // @Params auth header string true "token"
 // @Param data body requests.DeactivateAcc true "body"
-//@Success 200 
+//@Success 200
 //@Failure 404
 //@router /deactivestore [put]
 func (this *UserController) DeactivateStoreAPI() {
@@ -441,13 +438,13 @@ func (this *UserController) DeactivateStoreAPI() {
 		this.Data["json"] = responses.Response{Data: "", Error: &responses.Err{Code: 401, Message: "Error at json.Unmarshal"}}
 		return
 	}
-	
+
 	typeid := this.Ctx.Request.Header.Get("Type")
 	if typeid != "0" {
 		this.Data["json"] = responses.Response{Data: "", Error: &responses.Err{Code: 403, Message: "Permission Not Allowed"}}
 		return
 	}
-	
+
 	err = store.DeactivateStore(req)
 	// log.Println(err)
 	if err != nil {

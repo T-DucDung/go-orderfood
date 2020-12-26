@@ -5,8 +5,8 @@ import (
 	"go-orderfood/models"
 	"go-orderfood/requests"
 	"go-orderfood/responses"
-	"log"
 	"go-orderfood/services"
+	"log"
 
 	"github.com/astaxie/beego"
 )
@@ -47,7 +47,6 @@ func (this *LoginController) Login() {
 	return
 }
 
-
 //@Title Signup
 //@Description Signup
 //@Summary "Signup"
@@ -76,7 +75,7 @@ func (this *LoginController) Signup() {
 		this.Data["json"] = responses.Response{Data: "", Error: &responses.Err{Code: 400, Message: "UserName already exists"}}
 		return
 	}
-	
+
 	_, err = cus.CreateCustomer(req)
 	if err != nil {
 		this.Data["json"] = responses.ResCustomer{
@@ -91,5 +90,3 @@ func (this *LoginController) Signup() {
 		Error: responses.NewErr(responses.Success),
 	}
 }
-
-

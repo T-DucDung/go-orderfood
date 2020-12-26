@@ -2,13 +2,13 @@ package models
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"go-orderfood/queries"
 	"go-orderfood/requests"
 	"log"
 	"strconv"
 	"time"
-	"errors"
 )
 
 type Customers struct {
@@ -125,11 +125,9 @@ func (this *Customers) CreateCustomer(req requests.CreateCustomer) (Customers, e
 	return Customers{}, nil
 }
 
+func (this *Customers) DeactivateCustomer(req requests.DeactivateAcc) error {
 
-
-func (this *Customers) DeactivateCustomer(req requests.DeactivateAcc) (error){
-	
-	da, err := GetDataByQuery("select count(account.typeid) from account where account.type = '"+ req.Type +"' and account.typeid= '" +req.Id + "'")
+	da, err := GetDataByQuery("select count(account.typeid) from account where account.type = '" + req.Type + "' and account.typeid= '" + req.Id + "'")
 	if err != nil {
 		return err
 	}
@@ -148,11 +146,9 @@ func (this *Customers) DeactivateCustomer(req requests.DeactivateAcc) (error){
 	return err
 }
 
+func (this *Customers) ActivateCustomer(req requests.DeactivateAcc) error {
 
-
-func (this *Customers) ActivateCustomer(req requests.DeactivateAcc) (error){
-	
-	data, err := GetDataByQuery("select count(account.typeid) from account where account.type = '"+ req.Type +"' and account.typeid= '" +req.Id + "'")
+	data, err := GetDataByQuery("select count(account.typeid) from account where account.type = '" + req.Type + "' and account.typeid= '" + req.Id + "'")
 	if err != nil {
 		return err
 	}

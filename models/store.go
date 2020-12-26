@@ -2,12 +2,12 @@ package models
 
 import (
 	"encoding/json"
+	"errors"
 	"go-orderfood/queries"
 	"go-orderfood/requests"
 	"log"
 	"strconv"
 	"time"
-	"errors"
 )
 
 type Store struct {
@@ -23,6 +23,12 @@ type Store struct {
 	RateFive   string `json:"rate_five" xml:"rate_five"`
 	Username   string `json:"username"`
 	Status     string `json:"status"`
+}
+
+type StoreImg struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+	Img  string `json:"img"`
 }
 
 func (this *Store) GetStoreInfo() (Store, error) {
@@ -121,9 +127,9 @@ func (this *Store) CreateStore(req requests.CreateStore) (Store, error) {
 	return Store{}, nil
 }
 
-func (this *Store) DeactivateStore(req requests.DeactivateAcc) (error){
+func (this *Store) DeactivateStore(req requests.DeactivateAcc) error {
 
-	data, err := GetDataByQuery("select count(account.typeid) from account where account.type = '"+ req.Type +"' and account.typeid= '" +req.Id + "'")
+	data, err := GetDataByQuery("select count(account.typeid) from account where account.type = '" + req.Type + "' and account.typeid= '" + req.Id + "'")
 	if err != nil {
 		return err
 	}
@@ -143,9 +149,9 @@ func (this *Store) DeactivateStore(req requests.DeactivateAcc) (error){
 	return err
 }
 
-func (this *Store) ActivateStore(req requests.DeactivateAcc) (error){
+func (this *Store) ActivateStore(req requests.DeactivateAcc) error {
 
-	data, err := GetDataByQuery("select count(account.typeid) from account where account.type = '"+ req.Type +"' and account.typeid= '" +req.Id + "'")
+	data, err := GetDataByQuery("select count(account.typeid) from account where account.type = '" + req.Type + "' and account.typeid= '" + req.Id + "'")
 	if err != nil {
 		return err
 	}
@@ -162,4 +168,73 @@ func (this *Store) ActivateStore(req requests.DeactivateAcc) (error){
 		return err
 	}
 	return err
+}
+func (this *Store) GetAllStore() ([]StoreImg, error) {
+	data, err := GetDataByQuery("select id,  name from store ")
+	if err != nil {
+		return []StoreImg{}, err
+	}
+	bData, err := json.Marshal(data)
+	if err != nil {
+		return []StoreImg{}, err
+	}
+	stores := []StoreImg{}
+	err = json.Unmarshal(bData, &stores)
+	if err != nil {
+		return []StoreImg{}, err
+	}
+	return stores, nil
+}
+
+func (this *Store) AddImg(s []StoreImg) ([]StoreImg, error) {
+	for index, item := range s {
+		data, err := GetDataByQuery("select image from food where store_id = " + item.ID + " order by rand() limit 1")
+		if err != nil {
+			return []StoreImg{}, err
+		}
+		if len(data) != 0 {
+			s[index].Img = data[0]["image"].(string)
+		}
+	}
+	return s, nil
+}
+
+func (this *Store) GetRate(sid string) (string, error) {
+	data, err := GetDataByQuery("select rate_avg from store where id = " + sid)
+	if err != nil {
+		return "", err
+	}
+	return data[0]["rate_avg"].(string), nil
+}
+
+func (this *Store) GetRateId(sid string, id string) (string, error) {
+	data, err := GetDataByQuery("select rate from rate where id = " + sid + " and user_id = " + id)
+	if err != nil {
+		return "0", err
+	}
+	if len(data) == 0 {
+		return "0", nil
+	}
+	return data[0]["rate"].(string), nil
+}
+
+func (this *Store) SetRate(req requests.RateReq) error {
+	rate, err := this.GetRateId(req.StoreID, req.UserID)
+	if err != nil {
+		return err
+	}
+	t := time.Now().UnixNano() / int64(time.Millisecond)
+	if rate == "0" {
+		err = ExecNonQuery("call CREATE_RATE(" + strconv.FormatInt(t, 10) + ", " + strconv.FormatInt(t, 10) + ", " + strconv.Itoa(req.Rate) + ", " + req.StoreID + ", " + req.UserID + ")  ")
+		if err != nil {
+			return err
+		}
+	} else {
+		log.Println("hehe")
+		err = ExecNonQuery("call UPDATE_RATE(" + strconv.FormatInt(t, 10) + ", " + strconv.Itoa(req.Rate) + ", " + rate + ", " + req.StoreID + ", " + req.UserID + ")  ")
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }

@@ -2,13 +2,13 @@ package models
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"go-orderfood/queries"
 	"go-orderfood/requests"
 	"log"
 	"strconv"
 	"time"
-	"errors"
 )
 
 type Shipper struct {
@@ -103,9 +103,9 @@ func (this *Shipper) CreateShipper(req requests.CreateShipper) (Shipper, error) 
 	return Shipper{}, nil
 }
 
-func (this *Shipper) DeactivateShipper(req requests.DeactivateAcc) (error){
+func (this *Shipper) DeactivateShipper(req requests.DeactivateAcc) error {
 
-	data, err := GetDataByQuery("select count(account.typeid) from account where account.type = '"+ req.Type +"' and account.typeid= '" +req.Id + "'")
+	data, err := GetDataByQuery("select count(account.typeid) from account where account.type = '" + req.Type + "' and account.typeid= '" + req.Id + "'")
 	if err != nil {
 		return err
 	}
@@ -125,9 +125,9 @@ func (this *Shipper) DeactivateShipper(req requests.DeactivateAcc) (error){
 	return err
 }
 
-func (this *Shipper) ActivateShipper(req requests.DeactivateAcc) (error){
+func (this *Shipper) ActivateShipper(req requests.DeactivateAcc) error {
 
-	data, err := GetDataByQuery("select count(account.typeid) from account where account.type = '"+ req.Type +"' and account.typeid= '" +req.Id + "'")
+	data, err := GetDataByQuery("select count(account.typeid) from account where account.type = '" + req.Type + "' and account.typeid= '" + req.Id + "'")
 	if err != nil {
 		return err
 	}
