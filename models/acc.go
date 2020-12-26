@@ -1,0 +1,85 @@
+package models
+
+import (
+	"encoding/json"
+	"errors"
+	"strconv"
+	"time"
+)
+
+type Account struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Type     string `json:"type"`
+	Typeid   string `json:"typeid"`
+}
+type Authorize struct {
+	Username string `xml:"username" json:"username"`
+	Password string `xml:"password" json:"password"`
+}
+
+func (this *Account) Getaccount() (Account, error) {
+	data, err := GetDataByQuery("select username,password, type,typeid from account where username='" + this.Username + "'")
+	if err != nil {
+		return Account{}, err
+	}
+	if len(data) == 0 {
+		return Account{}, errors.New("User is not exist")
+	}
+	bData, err := json.Marshal(data[0])
+	if err != nil {
+		return Account{}, err
+	}
+	acc := Account{}
+	err = json.Unmarshal(bData, &acc)
+	if err != nil {
+		return Account{}, err
+	}
+	return acc, nil
+}
+
+// func (this *Account) GetAccountById() (Account, error) {
+// 	data, err := db.Prepare("select count(*) from account where account.type = ? and account.typeid= ?")
+// 	if err != nil {
+// 		return Account{}, err
+// 	}
+// 	_, err = data.Exec()
+
+// 	if err != nil {
+// 		return Account{}, err
+// 	}
+// 	if len(data) == 0 {
+// 		return Account{}, errors.New("User's not exist")
+// 	}
+// 	bData, err := json.Marshal(data[0])
+// 	if err != nil {
+// 		return Account{}, err
+// 	}
+// 	acc := Account{}
+// 	err = json.Unmarshal(bData, &acc)
+// 	if err != nil {
+// 		return Account{}, err
+// 	}
+// 	return acc, nil
+// }
+
+func (this *Account) CreateAcc() (Account, error) {
+	_, err := this.Getaccount()
+
+	if err == nil {
+		return Account{}, err
+	}
+	time := time.Now().Unix()
+	status := 1
+
+	data, err := db.Prepare("INSERT INTO account(created_date, updated_date, username, password, type, typeid, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);")
+	if err != nil {
+		return Account{}, err
+	}
+	_, err = data.Exec(strconv.FormatInt(time, 10), strconv.FormatInt(time, 10), this.Username, this.Password, this.Type, 0, strconv.Itoa(status))
+
+	if err != nil {
+		return Account{}, err
+	}
+	return Account{}, nil
+}

@@ -3,8 +3,390 @@
     "info": {
         "contact": {}
     },
-    "basePath": "/v1/orderfood",
+    "basePath": "/v1",
     "paths": {
+        "/food/cate": {
+            "get": {
+                "tags": [
+                    "food"
+                ],
+                "summary": "\"Get Category\"",
+                "description": "Get Category",
+                "operationId": "FoodController.Get Category",
+                "responses": {
+                    "200": {
+                        "description": "responses.Response"
+                    },
+                    "404": {
+                        "description": "responses.Response"
+                    }
+                }
+            }
+        },
+        "/food/list": {
+            "get": {
+                "tags": [
+                    "food"
+                ],
+                "summary": "\"Get List Food",
+                "description": "Get List Food",
+                "operationId": "FoodController.Get List Food",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "name",
+                        "description": "name",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "cate",
+                        "description": "type",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "responses.Response"
+                    },
+                    "404": {
+                        "description": "responses.Response"
+                    }
+                }
+            }
+        },
+        "/food/listrand": {
+            "get": {
+                "tags": [
+                    "food"
+                ],
+                "summary": "\"Get List Food Rand\"",
+                "description": "Get List Food Rand",
+                "operationId": "FoodController.Get List Food Rand",
+                "responses": {
+                    "200": {
+                        "description": "responses.Response"
+                    },
+                    "404": {
+                        "description": "responses.Response"
+                    }
+                }
+            }
+        },
+        "/food/listrandbycate": {
+            "get": {
+                "tags": [
+                    "food"
+                ],
+                "summary": "\"Get List Food Rand By Cate\"",
+                "description": "Get List Food Rand By Cate",
+                "operationId": "FoodController.Get List Food Rand By Cate",
+                "responses": {
+                    "200": {
+                        "description": "responses.Response"
+                    },
+                    "404": {
+                        "description": "responses.Response"
+                    }
+                }
+            }
+        },
+        "/food/liststore": {
+            "get": {
+                "tags": [
+                    "food"
+                ],
+                "summary": "\"Get List Food In Store\"",
+                "description": "Get List Food In Store",
+                "operationId": "FoodController.Get List Food In Store",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "sid",
+                        "description": "sid",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "responses.Response"
+                    },
+                    "404": {
+                        "description": "responses.Response"
+                    }
+                }
+            }
+        },
+        "/listorder/": {
+            "get": {
+                "tags": [
+                    "listorder"
+                ],
+                "summary": "\"Get danh sách order \"",
+                "description": "Get List Order",
+                "operationId": "ListOrderController.Get List Order",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ResListOrder"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.ResListOrder"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "listorder"
+                ],
+                "summary": "\"Shipper nhận đơn\"",
+                "description": "Up Status Order",
+                "operationId": "ListOrderController.Up Status Order",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "orderid",
+                        "description": "order id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.Response"
+                    }
+                }
+            }
+        },
+        "/listorder/shipper": {
+            "get": {
+                "tags": [
+                    "listorder"
+                ],
+                "summary": "\"Get danh sách order mà shipper đã nhận\"",
+                "description": "Get List Order Shipper",
+                "operationId": "ListOrderController.Get List Order Shipper",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ResListOrder"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.ResListOrder"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "listorder"
+                ],
+                "summary": "\"Shipper hoàn thành đơn\"",
+                "description": "End Status Order",
+                "operationId": "ListOrderController.End Status Order",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "orderid",
+                        "description": "order id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.Response"
+                    }
+                }
+            }
+        },
+        "/listorder/store": {
+            "post": {
+                "tags": [
+                    "listorder"
+                ],
+                "summary": "\"Store nhận đơn\"",
+                "description": "Store Accept Order",
+                "operationId": "ListOrderController.Store Accept Order",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "orderid",
+                        "description": "order id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.Response"
+                    }
+                }
+            }
+        },
+        "/login/": {
+            "post": {
+                "tags": [
+                    "login"
+                ],
+                "summary": "\"Login\"",
+                "description": "Login",
+                "operationId": "LoginController.Login",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "username",
+                        "description": "username",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Authorize"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/login/signup": {
+            "post": {
+                "tags": [
+                    "login"
+                ],
+                "summary": "\"Signup\"",
+                "description": "Signup",
+                "operationId": "LoginController.Signup",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "username",
+                        "description": "username",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.CreateCustomer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/statistic/": {
+            "get": {
+                "tags": [
+                    "statistic"
+                ],
+                "summary": "\"Get thống kê \"",
+                "description": "Get Statictic",
+                "operationId": "StatisticController.Get Statictic",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "startTime",
+                        "description": "start time",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "endTime",
+                        "description": "end time",
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ResStatistic"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.ResStatistic"
+                    }
+                }
+            }
+        },
         "/statisticstore/": {
             "get": {
                 "tags": [
@@ -15,12 +397,11 @@
                 "operationId": "StatisticStoreController.Get Statictic Store",
                 "parameters": [
                     {
-                        "in": "query",
-                        "name": "sid",
-                        "description": "store id",
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
                         "required": true,
-                        "type": "integer",
-                        "format": "int64"
+                        "type": "string"
                     },
                     {
                         "in": "query",
@@ -49,9 +430,439 @@
                     }
                 }
             }
+        },
+        "/user/activeshipper": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"Kích tài khoản shipper\"",
+                "description": "Update Status Shipper",
+                "operationId": "UserController.Update Status Shipper",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.DeactivateAcc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/activestore": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"Kích tài khoản Store\"",
+                "description": "Update Status Store",
+                "operationId": "UserController.Update Status Store",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.DeactivateAcc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/activeuser": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"Kích hoat tài khoản khách hàng\"",
+                "description": "Update Status Customer",
+                "operationId": "UserController.Update Status Customer",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.DeactivateAcc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/creshipper": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"CreateShipper\"",
+                "description": "Create Shipper",
+                "operationId": "UserController.Create Shipper",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "username",
+                        "description": "username",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.CreateShipper"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/crestore": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"CreateStore\"",
+                "description": "Create Store",
+                "operationId": "UserController.Create Store",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "username",
+                        "description": "username",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.CreateStore"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/creuser": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"CreateCustomer\"",
+                "description": "Create Customer",
+                "operationId": "UserController.Create Customer",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "username",
+                        "description": "username",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.CreateCustomer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/customer": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"Get toàn bộ thông tin khách hàng\"",
+                "description": "Get All Customer",
+                "operationId": "UserController.Get All Customer",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ResCustomer"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.ResCustomer"
+                    }
+                }
+            }
+        },
+        "/user/deactiveshipper": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"Vô hiệu hoá tài khoản Shipper\"",
+                "description": "Update Status Shipper",
+                "operationId": "UserController.Update Status Shipper",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.DeactivateAcc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/deactivestore": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"Vô hiệu hoá tài khoản Store\"",
+                "description": "Update Status Store",
+                "operationId": "UserController.Update Status Store",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.DeactivateAcc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/deactiveuser": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"Vô hiệu hoá tài khoản khách hàng\"",
+                "description": "Update Status Customer",
+                "operationId": "UserController.Update Status Customer",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.DeactivateAcc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/shipper": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"Get toàn bộ thông tin người giao hàng\"",
+                "description": "Get All Shipper",
+                "operationId": "UserController.Get All Shipper",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ResShipper"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.ResShipper"
+                    }
+                }
+            }
+        },
+        "/user/store": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "\"Get toàn bộ thông tin Cửa hàng\"",
+                "description": "Get All Store",
+                "operationId": "UserController.Get All Store",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "auth",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ResStore"
+                        }
+                    },
+                    "404": {
+                        "description": "responses.ResStore"
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "857.0xc0003e6840.false": {
+            "title": "false",
+            "type": "object"
+        },
+        "models.Authorize": {
+            "title": "Authorize",
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "models.BestSellingFoods": {
             "title": "BestSellingFoods",
             "type": "object",
@@ -67,6 +878,54 @@
                 }
             }
         },
+        "models.Customers": {
+            "title": "Customers",
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "image_url": {
+                    "type": "string"
+                },
+                "mobile": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.FoodOrder": {
+            "title": "FoodOrder",
+            "type": "object",
+            "properties": {
+                "id_food": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "string"
+                }
+            }
+        },
         "models.LoyalCustomers": {
             "title": "LoyalCustomers",
             "type": "object",
@@ -78,6 +937,105 @@
                     "type": "string"
                 },
                 "total_count": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Order": {
+            "title": "Order",
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "list_food": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.FoodOrder"
+                    }
+                },
+                "mobile": {
+                    "type": "string"
+                },
+                "name_shipper": {
+                    "type": "string"
+                },
+                "name_shop": {
+                    "type": "string"
+                },
+                "order_status": {
+                    "type": "string"
+                },
+                "phone_shipper": {
+                    "type": "string"
+                },
+                "shipper_id": {
+                    "type": "string"
+                },
+                "shop_id": {
+                    "type": "string"
+                },
+                "total_amount": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Shipper": {
+            "title": "Shipper",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Statistic": {
+            "title": "Statistic",
+            "type": "object",
+            "properties": {
+                "revenue": {
+                    "type": "string"
+                },
+                "statistic_all_store": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.StatisticStore"
+                    }
+                },
+                "total_customer": {
+                    "type": "string"
+                },
+                "total_order": {
+                    "type": "string"
+                },
+                "total_shipper": {
+                    "type": "string"
+                },
+                "total_shop": {
                     "type": "string"
                 }
             }
@@ -115,6 +1073,129 @@
                 }
             }
         },
+        "models.Store": {
+            "title": "Store",
+            "type": "object",
+            "properties": {
+                "create_date": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "rate_avg": {
+                    "type": "string"
+                },
+                "rate_five": {
+                    "type": "string"
+                },
+                "rate_four": {
+                    "type": "string"
+                },
+                "rate_one": {
+                    "type": "string"
+                },
+                "rate_three": {
+                    "type": "string"
+                },
+                "rate_two": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "update_date": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "requests.CreateCustomer": {
+            "title": "CreateCustomer",
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "image_url": {
+                    "type": "string"
+                },
+                "mobile": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "requests.CreateShipper": {
+            "title": "CreateShipper",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "requests.CreateStore": {
+            "title": "CreateStore",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "requests.DeactivateAcc": {
+            "title": "DeactivateAcc",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
         "responses.Err": {
             "title": "Err",
             "type": "object",
@@ -128,12 +1209,96 @@
                 }
             }
         },
+        "responses.ResCustomer": {
+            "title": "ResCustomer",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Customers"
+                    }
+                },
+                "error": {
+                    "$ref": "#/definitions/responses.Err"
+                }
+            }
+        },
+        "responses.ResListOrder": {
+            "title": "ResListOrder",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Order"
+                    }
+                },
+                "error": {
+                    "$ref": "#/definitions/responses.Err"
+                }
+            }
+        },
+        "responses.ResShipper": {
+            "title": "ResShipper",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Shipper"
+                    }
+                },
+                "error": {
+                    "$ref": "#/definitions/responses.Err"
+                }
+            }
+        },
+        "responses.ResStatistic": {
+            "title": "ResStatistic",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Statistic"
+                },
+                "error": {
+                    "$ref": "#/definitions/responses.Err"
+                }
+            }
+        },
         "responses.ResStatisticStore": {
             "title": "ResStatisticStore",
             "type": "object",
             "properties": {
                 "data": {
                     "$ref": "#/definitions/models.StatisticStore"
+                },
+                "error": {
+                    "$ref": "#/definitions/responses.Err"
+                }
+            }
+        },
+        "responses.ResStore": {
+            "title": "ResStore",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Store"
+                    }
+                },
+                "error": {
+                    "$ref": "#/definitions/responses.Err"
+                }
+            }
+        },
+        "responses.Response": {
+            "title": "Response",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/857.0xc0003e6840.false"
                 },
                 "error": {
                     "$ref": "#/definitions/responses.Err"

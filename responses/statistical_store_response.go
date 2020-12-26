@@ -1,7 +1,7 @@
 package responses
 
 import (
-	"orderfood/models"
+	"go-orderfood/models"
 )
 
 type ResStatisticStore struct {

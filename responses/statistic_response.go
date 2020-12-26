@@ -1,6 +1,6 @@
 package responses
 
-import "orderfood/models"
+import "go-orderfood/models"
 
 type ResStatistic struct {
 	Data  models.Statistic `json:"data"`

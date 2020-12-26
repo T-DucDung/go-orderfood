@@ -7,7 +7,7 @@ import (
 func GetDataByQuery(query string) ([]map[string]interface{}, error) {
 	data := []map[string]interface{}{}
 
-	rows, err := conn.Query(query)
+	rows, err := db.Query(query)
 	defer rows.Close()
 	if err != nil {
 		log.Println(err)
@@ -32,6 +32,9 @@ func GetDataByQuery(query string) ([]map[string]interface{}, error) {
 			log.Println(err)
 		}
 		for i, col := range cols {
+			if col == nil {
+				col = []byte("0")
+			}
 			myMap[colNames[i]] = BytesToString(col.([]byte))
 		}
 		data = append(data, myMap)
@@ -41,4 +44,13 @@ func GetDataByQuery(query string) ([]map[string]interface{}, error) {
 
 func BytesToString(data []byte) string {
 	return string(data[:])
+}
+
+func ExecNonQuery(str string) error {
+	_, err := db.Exec(str)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	return nil
 }
