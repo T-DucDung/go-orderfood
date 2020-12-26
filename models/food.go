@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/json"
 	"go-orderfood/queries"
+	"strconv"
 )
 
 type Food struct {
@@ -190,4 +191,13 @@ func (this *Food) GetListInStore(sid string) ([]FoodMenu, error) {
 		return []FoodMenu{}, err
 	}
 	return cus, nil
+}
+
+func (this *Food) Price(id string, quantity int) (int, error) {
+	data, err := GetDataByQuery("select sale_price from food where id = " + id)
+	if err != nil {
+		return -1, err
+	}
+	p, _ := strconv.Atoi((data[0]["sale_price"]).(string))
+	return p * quantity, nil
 }
